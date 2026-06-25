@@ -53,3 +53,29 @@
 // }
 
 // bubbleSort()
+
+
+
+
+
+
+
+
+
+// function selectionSort() {
+//     let num = [7,12,9,11,3]
+//     for(let i=0; i < num.length -1; i++){
+//         minInd = i
+//         for(let j=i+1; j < num.length-1; j++){           // Selection Sort- find lowest value and move it to start of array
+//             if(num[minInd] > num[j]){
+//                 minInd = j
+//             }
+//         }
+//         let tempVal = num[i]                         // out of for loop so that 
+//         num[i] = num[minInd]
+//         num[minInd] = tempVal
+//     }
+//     console.log(num)
+// }
+
+// selectionSort()
