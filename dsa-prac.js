@@ -102,3 +102,32 @@
 // }
 //     let num =[5,2,4,6,1,3]
 //     console.log(insertionSort(num))
+
+
+
+
+
+
+
+// function quickSort(arr){
+//     if(arr.length <= 1){
+//         return arr
+//     }
+//     let pivot = arr[arr.length-1]
+//     let lhs = []
+//     let rhs = []
+//     for(let i=0 ; i < arr.length -1; i++){              // quickSort (non optimal code) refer later for optimal code
+//         if (pivot > arr[i]){
+//             lhs.push(arr[i])
+//         } else {
+//             rhs.push(arr[i])
+//         }
+// }
+//      return [...quickSort(lhs),
+//      pivot,
+//      ...quickSort(rhs)]
+// }
+
+// let num = [8,3,6,2,5,1,9]
+// console.log(quickSort(num))
+
