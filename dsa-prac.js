@@ -1,4 +1,6 @@
 
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
@@ -109,6 +111,7 @@
 
 
 
+
 // function quickSort(arr){
 //     if(arr.length <= 1){
 //         return arr
@@ -131,3 +134,35 @@
 // let num = [8,3,6,2,5,1,9]
 // console.log(quickSort(num))
 
+
+
+
+
+
+
+// function countingSort(arr){
+//     if(arr.length < 0){
+//         return []
+//     }
+//     let maxVal = Math.max(...arr)
+
+//     let count = new Array(maxVal+1).fill(0)
+    
+//     for(let num of arr){
+//         count[num] = count[num] + 1
+//     }
+    
+// let sorted = []
+
+//     for(let i=0; i < arr.length; i++){
+//         while(count[i] > 0){
+//             sorted.push(i)
+//             count[i]--
+//         }
+//     }
+//     return sorted
+// }
+
+// let num = [2,4,4,5,7,7,2,1]
+
+// console.log(countingSort(num))
