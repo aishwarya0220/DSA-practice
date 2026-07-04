@@ -1,3 +1,101 @@
+// Starting ke beginning se shuruat
+
+
+// #Striver-A2Z
+
+// class Solution {
+//     printNumber(value) {
+//         console.log(value)          // i/p & o/p
+//     }
+// }
+
+
+
+
+// class Solution {
+//     studentGrade(marks) {
+//         if(marks >= 90){
+//             console.log("Grade A")      // if-else
+//         } else if(marks >= 70){
+//             console.log("Grade B")
+//         } else if(marks >= 50){
+//             console.log("Grade C")
+//         } else if(marks >= 35){
+//             console.log("Grade D")
+//         } else {
+//             console.log("Fail")
+//         }
+//     }
+// }
+
+
+
+
+
+// class Solution {
+//     whichWeekDay(day) {
+//         switch(day) {
+//             case 1:
+//                 console.log("Monday")
+//                 break
+//             case 2:
+//                 console.log("Tuesday")
+//                 break
+//             case 3:
+//                 console.log("Wednesday")            // switch statement evaluates an expression and matches its value against multiple case clauses to execute specific blocks of code
+//                 break                               // alternative to if...else if when comparing a single variable against multiple distinct values
+//             case 4:
+//                 console.log("Thursday")
+//                 break
+//             case 5:
+//                 console.log("Friday")
+//                 break
+//             case 6:
+//                 console.log("Saturday")
+//                 break
+//             case 7:
+//                 console.log("Sunday")
+//                 break
+//             default:
+//                 console.log("Invalid")
+//                 break
+//         }
+//     }
+// }
+
+
+
+
+// class Solution {
+//     forLoop(low, high) {
+//         let sum = 0
+//         for(let i=low; i <= high; i++){             // for loop -> initialization|condition|increment
+//             sum += i 
+//         }
+//         return sum
+//     }
+// }
+
+
+
+
+class Solution {
+    whileLoop(d) {
+        let count = 0
+        let sum = 0
+
+        while(count < 50){
+            sum += d
+            d += 10
+            count++
+            }
+            return sum
+        }
+        
+    }
+    
+
+
 
 
 
