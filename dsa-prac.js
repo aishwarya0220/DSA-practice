@@ -79,21 +79,79 @@
 
 
 
-class Solution {
-    whileLoop(d) {
-        let count = 0
-        let sum = 0
+// class Solution {
+//     whileLoop(d) {
+//         let count = 0
+//         let sum = 0
 
-        while(count < 50){
-            sum += d
-            d += 10
-            count++
-            }
-            return sum
-        }
+//         while(count < 50){
+//             sum += d
+//             d += 10
+//             count++
+//             }
+//             return sum
+//         }
         
-    }
+//     }
     
+
+
+
+// class Solution {
+
+//     reverse(arr) {
+//         let left = 0
+//         let right = arr.length - 1
+
+//         while(left < right){
+//             let temp = arr[left]
+//             arr[left] = arr[right]      // in-place(pass by reference). Can also use .reverse() built in f(n) but interviews mostly prefer manual(written in code)
+//             arr[right] = temp
+
+//             left++
+//             right--
+//         }
+//         return arr
+//     }
+
+// }
+
+
+
+
+
+// class Solution {
+//     pattern1(n) {
+//         let ans = ""
+//         for(let i=0; i < n; i++){
+//         let row = ""
+//         for(let j=0; j < n; j++){        // character representation n times
+//             row += "*"                   // *****
+                                            // *****
+//         }
+//         ans += row + "\n"
+//     } 
+//     return ans                           // Outer loop manages rows; Inner loop manages columns 
+// }
+
+// }
+
+// let n = 5;
+
+// let obj = new Solution();
+
+// let result = obj.pattern1(n);
+
+// console.log(result);
+
+
+
+
+
+function lining(){
+    
+}
+
 
 
 
