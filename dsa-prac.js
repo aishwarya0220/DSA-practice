@@ -148,9 +148,73 @@
 
 
 
-function lining(){
-    
-}
+// class Solution {
+//     pattern2(n) {
+//         for(let i = 0; i < n ; i++){
+//             let row = ""
+//             for(let j = 1; j <= i+1; j++){           // pattern - matching inner loop execution with no of iterations(i+1)
+//                 row += "*"
+//             }
+//         console.log(row)
+//         }
+//     }
+// }
+
+
+
+
+
+// class Solution {
+//     pattern3(n) {
+//         for(let i = 0; i < n; i++){
+//             let row = ""
+//             for(let j = 1; j <= i+1 ; j++){
+//                 row += j
+//             }
+//         console.log(row)
+//         } 
+//     }
+// }
+
+
+
+
+
+
+
+// class Solution {
+//     pattern4(n) {
+//         for(let i = 1; i <= n ; i++){
+//             let row = ""
+//             for(let j = 1 ; j <= i ; j++){
+//                 row += i
+//             }
+//                     console.log(row)
+
+//         }
+//     }
+// }
+
+
+
+
+
+// class Solution {
+//     pattern5(n) {
+//         for(let i = 0; i < n ; i++){
+//             let row = ""
+//             for(let j = n; j > i; j--){
+//                 row += "*"
+//             }
+//             console.log(row)
+//         }
+//     }
+// }
+
+
+
+
+
 
 
 
