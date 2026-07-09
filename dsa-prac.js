@@ -215,7 +215,39 @@
 
 
 
+// class Solution {
+//     pattern9(n) {
+//         let ans = ""
+//        for(let i = 0; i < n+n; i++){
+//            let row = ""
+//            if(i < n){
+//                for(let k = 0; k < n-i-1; k++){               // Normal + Inverted pyramid using single outer loop
+//                    row += " "
+//                }
+//                for(let j = 0; j < i+i+1; j++){
+//                    row += "*"
+//                }
+//            }else {
+//                for(let k = 0; k < i-n; k++){
+//                    row += " "
+//                }
+//                for(let j = 0; j < 2*n - 2*(i-n) -1 ; j++){
+//                    row += "*"
+//                }
+//            }
+//            ans += row + "\n"
+//        }
+//        return ans
+//     }
+// }
 
+// let n = 4;
+
+// let obj = new Solution();
+
+// let result = obj.pattern9(n);
+
+// console.log(result);
 
 
 
