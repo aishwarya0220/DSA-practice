@@ -253,6 +253,39 @@
 
 
 
+
+// class Solution {
+//     pattern12(n) {
+//         let ans = ""
+//         for(let  i = 0; i < n; i++){
+//             let row = ""
+//             for (let j = 1; j <= i+1; j++){
+//                 row += j
+//             }
+//             for (let k = 0; k < 2*n -2*i -2; k++){           // Pattern using 3 sub-components
+//                 row += " "
+//             }
+//             for (let l = i+1; l > 0; l--){
+//                 row += l
+//             }
+//             ans += row + "\n"
+//         }
+//         return ans
+//     }
+// }
+// let n = 5;
+
+// let obj = new Solution();
+
+// let result = obj.pattern12(n);
+
+// console.log(result);
+
+
+
+
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
