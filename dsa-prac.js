@@ -286,6 +286,69 @@
 
 
 
+// class Solution {
+//     pattern14(n) {
+//         let ans = ""
+//         for(let i = 0; i < n; i++){
+//             let row = ""
+//             for(let j = 0; j < i+1; j++){
+//                 row += String.fromCharCode(0 + j)
+//             }
+//             ans += row + "\n"
+//         }
+//         return ans
+//     }
+// }
+
+// let n = 5;
+
+// let obj = new Solution();
+
+// let result = obj.pattern14(n);
+
+// console.log(result);
+
+
+
+
+
+
+// class Solution {
+//     pattern19(n) {
+//         for(let i = 0; i < 2*n; i++){
+//             let row = ""
+//             if(i < n){
+//                 for(let j = 0; j < n-i; j++){
+//                     row += "*"
+//                 }
+//                 for(let k = 0; k < 2*i; k++){
+//                     row += " "
+//                 }
+//                 for(let l = 0; l < n-i; l++){
+//                     row += "*"
+//                 }
+//             }else {
+//                 for(let j = 0; j < i-n+1; j++){
+//                     row += "*"
+//                 }
+//                 for(let k = 0; k < 2*n-2*(i-n)-2; k++){
+//                     row += " "
+//                 }
+//                 for(let l = 0; l < i-n+1; l++){
+//                     row += "*"
+//                 }
+//             }       
+//             console.log(row)
+//     }
+// }
+// }
+
+
+
+
+
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
