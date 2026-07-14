@@ -348,6 +348,82 @@
 
 
 
+// class Solution {
+//     pattern21(n) {
+//         let ans = ""
+//         for(let i = 0; i < n; i++){
+//             let row = ""
+//             if(i <= 0){
+//                 for(let j = 0; j < n; j++){
+//                 row += "*"
+//                 }
+//             } else if(i < n-1){
+//                 // for(let j = 0; j <= 0; j++){             // as loop runs only once, can replace with just the operation we want.
+//                     row += "*"                              // cant be done in i===0 loop since need to print "*" n times
+//                 // }
+//                 for(let k = 0; k < n-2; k++){
+//                     row += " "
+//                 }
+//                 // for(let l = 0; l <= 0; l++){             
+//                     row += "*"
+//                 // }
+//             } else {
+//                 for(let j = 0; j < n; j++){
+//                 row += "*"
+//                 }
+//             }
+//             ans += row + "\n"
+//         }
+//         return ans
+//     }
+// }
+
+// let n = 4;
+
+// let obj = new Solution();
+
+// let result = obj.pattern21(n);
+
+// console.log(result);
+
+
+
+
+
+
+class Solution {
+    pattern22(n) {
+        let ans = ""
+        for (let i = 0; i < 2*n-1; i++){
+            let row = ""
+            for (let j = 0; j < 2*n -1; j++){
+                let top = n - i
+                let bottom = i - n
+                let left = n - j
+                let right = j - n
+                let min = Math.min(top,bottom,left,right)
+                row += min + " "
+            }
+        ans += row + "\n"
+        }
+        return ans
+    }
+}
+
+let n = 5;
+
+let obj = new Solution();
+
+let result = obj.pattern22(n);
+
+console.log(result);
+
+
+
+
+
+
+
 
 // function fibonacci(){
 //     let arr = [0,1]
