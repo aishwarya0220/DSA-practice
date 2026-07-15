@@ -391,34 +391,78 @@
 
 
 
-class Solution {
-    pattern22(n) {
-        let ans = ""
-        for (let i = 0; i < 2*n-1; i++){
-            let row = ""
-            for (let j = 0; j < 2*n -1; j++){
-                let top = n - i
-                let bottom = i - n
-                let left = n - j
-                let right = j - n
-                let min = Math.min(top,bottom,left,right)
-                row += min + " "
-            }
-        ans += row + "\n"
-        }
-        return ans
-    }
-}
+// class Solution {
+//     countDigit(n) {
+//         if (n === 0) return 1
+//         let count = 0
+//         let num = n
+//         while(num > 0){
+//             num = Math.floor(num/10)             
+//             count++
+//         }
+//         return count
+//     }
+// }
 
-let n = 5;
+// let n = 47654;
 
-let obj = new Solution();
+// let obj = new Solution();
 
-let result = obj.pattern22(n);
+// let result = obj.countDigit(n);
 
-console.log(result);
+// console.log(result);
 
 
+
+
+
+
+// class Solution {
+//     reverseNumber(n) {
+//         if(n === 0) return 0
+        
+//         let reversedNum = 0
+//         let num = n
+//         while(num > 0){
+//             let rem = num%10
+//             reversedNum = reversedNum*10 + rem 
+            
+//             num = Math.floor(num/10)
+            
+//         }
+//         return reversedNum
+//     }
+// }
+// let n = -5000;
+
+// let obj = new Solution();
+
+// let result = obj.reverseNumber(n);
+
+// console.log(result);
+
+
+
+
+
+
+// class Solution {
+//     pattern22(n) {
+//         for (let i = 0; i < 2*n-1; i++){
+//             let row = ""
+//             for (let j = 0; j < 2*n -1; j++){
+//                 let top = i
+//                 let bottom = (2*n - 2) - i
+//                 let left = j
+//                 let right = (2*n - 2) - j
+//                 let min = Math.min(top,bottom,left,right)
+//                 let minDist = n - min
+//                 row += minDist + " "
+//             }
+//         console.log(row)
+//         }
+//     }
+// }
 
 
 
