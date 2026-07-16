@@ -469,6 +469,30 @@
 
 
 
+// class Solution {
+//     isPalindrome(n) {
+//         if(n === 0) return false
+//         if(n < 0) return false
+        
+//         let num = n
+//         let newNo = 0
+        
+//         while(num > 0){
+//             newNo = newNo * 10
+//             newNo = newNo + num%10
+//             num = Math.floor(num/10)
+//         }
+//         if(newNo === n){
+//             return true
+//         } else return false
+//     }
+// }
+
+
+
+
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
