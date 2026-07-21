@@ -493,22 +493,22 @@
 
 
 
-class Solution {
-    GCD(n1, n2) {
-        let arr1 = []
-        let arr2 = []
-        let x = n1 ** 0.5
-        let y = n2 ** 0.5
-        let gcd = 0
+// class Solution {
+//     GCD(n1, n2) {
+//         let arr1 = []
+//         let arr2 = []
+//         let x = n1 ** 0.5
+//         let y = n2 ** 0.5
+//         let gcd = 0
         
-        for(let i=1; i <= x; i++){
-            if(n1 % i === 0){ 
-                arr1.push(i)
-                if(n1/i !== i){
-                    arr1.push(n1/i)
-                }
-            }
-        }
+//         for(let i=1; i <= x; i++){
+//             if(n1 % i === 0){ 
+//                 arr1.push(i)
+//                 if(n1/i !== i){
+//                     arr1.push(n1/i)
+//                 }
+//             }
+//         }
         
         // let originalLength1 = arr1.length
         
