@@ -552,6 +552,46 @@
 
 
 
+// class Solution {
+//         isArmstrong(n) {
+//             if(n == 0) return true
+//             let count = 0;
+//             let sum = 0
+//             let num = n
+//             let unitDigit = 0
+//             while(num > 0){
+//                 // num = num % 10
+//                 num = Math.floor(num/10)
+//                 count++
+//             }
+//             num = n
+//             while(num > 0){
+//                 unitDigit = num % 10
+//                 sum = sum + unitDigit ** count
+//                 num = Math.floor(num/10)
+//             }
+//             if(sum == n){
+//                 return true
+//             }else return false
+//         }
+//     }
+    
+//     let n = 7;
+    
+//     let obj = new Solution();
+    
+//     let result = obj.isArmstrong(n);
+    
+//     console.log(result);
+
+
+
+
+
+
+
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
@@ -595,7 +635,9 @@
 //     let arr = [7,12,9,11,3]
 //     for (let i=0 ; i<arr.length - 1 ; i++){
 //         for (let i=0 ; i<arr.length - 1 ; i++){         // bubbleSort O(n-n)
-//             if(arr[i] > arr[i + 1]){
+//             if(arr[i] > arr[i + 1]){                                         // outer loop → controls passes
+                                                                                // inner loop → compares neighbours
+
 //                 let tempVal = arr[i]
 //                 arr[i] = arr[i + 1]
 //                 arr[i + 1] = tempVal
