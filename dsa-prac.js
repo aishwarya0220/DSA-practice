@@ -590,6 +590,69 @@
 
 
 
+// class Solution {
+//         printNumbers(n) {
+//             if(n <= 0){
+//                 return
+//             } 
+            
+//             //console.log(n)                         // printing before the recursive call executes during the "winding" phase (as functions are added to the stack), while printing after the recursive call executes during the "unwinding" phase (as functions return and are removed from the stack)
+//             this.printNumbers(n-1)                   // frame is added to the stack, it instantly prints the "Before" line because it is the first instructions it hits, and then it pauses and waits on the stack while the next recursive calls run
+            
+//             console.log(n)
+//         }
+//     }    
+
+
+
+
+
+
+
+
+// class Solution {
+//         NnumbersSum(N) {
+//             if(N <= 1){
+//                 return 1                                     
+//             }
+//             return N + this.NnumbersSum(N-1)                 // In recursion, each return ends one function call, and because there are multiple calls on the stack, the returns happen one by one until the original call is completed
+//         }
+        
+//     }
+
+
+
+
+
+
+
+// class Solution {
+//         // Function to reverse the array in place
+//         // The reversal should be done IN-PLACE.
+//         // Do not return anything from this function.        // A helper function is an additional function created inside/alongside the main function to handle a specific part of the logic.
+                                                                // In recursion problems, it is often used to store extra variables needed for recursive calls.
+//         reverse(arr, n) {                                    // only arr and n but we need left and right for changing values recursively thus use helper.
+//             const helper = ((left,right) => {                // Why not define left and right as variables? inside reverse(): left and right are fixed values. After each swap, recursion needs new values (left + 1, right - 1). If you try changing them, you would be modifying the same variables across calls instead of giving each recursive call its own state.
+//                 if(left >= right){                           
+//                     return
+//                 }
+//                 let d = arr[left]
+//                 arr[left] = arr[right]
+//                 arr[right] = d
+//                 helper(left+1,right-1)
+//             })
+//             helper(0, n-1)
+//             return arr
+//         }
+//     }
+
+ 
+
+
+
+
+
+
 
 
 // function fibonacci(){
