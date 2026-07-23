@@ -646,8 +646,37 @@
 //         }
 //     }
 
- 
 
+
+
+
+
+
+
+// class Solution {
+//         fib(n) {
+//             let prev = 0
+//             let curr = 1
+//             let fibNo
+//             if(n === 0) return prev
+//             if(n === 1) return curr
+//             for(let i = 2; i <= n; i++){             // fibNo are 0 indexed i.e though 0 is 1st fibNo, it is represented by 0 index
+//                 fibNo = prev + curr                  // i = 2 bcoz loop starts from 2nd number as 0 and 1 index values are prev and curr resp.
+                
+//                 let d = curr
+//                 curr = fibNo
+//                 prev = d
+//             }
+//             return curr
+//         }
+//     }
+//         let n = 8;
+        
+//         let obj = new Solution();
+        
+//         let result = obj.fib(n);
+        
+//         console.log(result);
 
 
 
