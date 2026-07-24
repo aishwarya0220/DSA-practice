@@ -1,5 +1,59 @@
 // Starting ke beginning se shuruat
 
+// Complexities
+
+// Time Complexity
+
+// Measures how the number of operations grows with input size (n).
+
+// Ask:
+
+// "How many times does my code run?"
+
+// Examples:
+
+// One loop → O(n)
+// Nested loops → O(n²)
+// Two separate loops → O(n + n) = O(n)
+// Space Complexity
+
+// Measures how much extra memory your code uses (ignore the input).
+
+// Ask:
+
+// "Does my extra memory grow when input grows?"
+
+// Examples:
+
+// O(1) → fixed memory:
+
+// let sum = 0;
+
+// Only one value is stored.
+
+// O(n) → memory grows with input:
+
+// let arr = [];
+// arr.push(value);
+
+// Stores more values as input grows.
+
+// O(n²) → storing a 2D structure:
+
+// matrix[n][n]
+// Quick rule:
+// Updating one variable → O(1)
+// Creating/storing n values → O(n)
+// Creating n × n values → O(n²)
+
+// For space, always ask:
+
+// "Am I replacing data or collecting data?"
+
+
+
+
+
 
 // #Striver-A2Z
 
@@ -670,14 +724,35 @@
 //             return curr
 //         }
 //     }
-//         let n = 8;
+        // let n = 8;
         
-//         let obj = new Solution();
+        // let obj = new Solution();
         
-//         let result = obj.fib(n);
+        // let result = obj.fib(n);
         
-//         console.log(result);
+        // console.log(result);
 
+
+
+
+
+// class Solution {
+//     bubbleSort(nums) {
+//         for(let i = 0; i < nums.length; i++){
+//             let swaps = 0
+//             for(let j = 0; j < nums.length - i-1; j++){
+//                 if(nums[j] > nums[j+1]){
+//                     let d = nums[j]
+//                     nums[j] = nums[j+1]
+//                     nums[j+1] = d
+//                     swaps++
+//                 }
+//             }
+//         if(swaps === 0) break
+//         }
+//         return nums
+//     }
+// }
 
 
 
