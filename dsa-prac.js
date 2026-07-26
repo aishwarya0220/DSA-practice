@@ -759,6 +759,29 @@
 
 
 
+// class Solution {
+//         insertionSort(nums) {
+//             for(let i = 1; i < nums.length; i++){            // Shift based approach; optimal for best case scenario
+//                 let d = nums[i]                              // Swap based approach emphasizes swapping adjacent values within inner loop for each value of j
+//                 let j
+//                 for(j = i; j >= 1; j--){
+//                     if(d < nums[j-1]){
+//                         nums[j] = nums[j-1]
+//                     } else break
+//                     }
+//                     nums[j] = d
+//                 }
+//                 return nums
+//             }
+//         }
+
+
+
+
+
+
+
+
 // function fibonacci(){
 //     let arr = [0,1]
 
@@ -933,4 +956,28 @@
 
 
 
-
+// class Solution {
+//         mergeSort(nums) {
+//             const subArrForm = ((nums) => {
+//             if(nums.length <= 1){
+//                 return nums
+//             }
+//             const half = Math.floor(nums.length/2)
+            
+//             const left = nums.slice(0,half)
+//             const right = nums.slice(half)
+    
+//             return [subArrForm(left),subArrForm(right)]
+            
+//             })
+//             return subArrForm(nums)
+//             }
+//         }
+    
+//         let nums = [7, 4, 1, 5, 3];
+            
+//         let obj = new Solution();
+            
+//         let result = obj.mergeSort(nums);
+            
+//         console.log(result);
