@@ -981,3 +981,64 @@
 //         let result = obj.mergeSort(nums);
             
 //         console.log(result);
+
+
+
+
+
+
+
+// class Solution {
+//         mergeSort(nums) {
+//             const subArrForm = ((nums) => {
+//             let merged = []
+//             if(nums.length <= 1){
+//                 return nums
+//             }
+//             const half = Math.floor(nums.length/2)                   // Before merging begins, the "entire array" is dismantled and scattered as slices across the active stack frames in memory. The variable leftSorted is only looking at whatever tiny sub-slice was just handed back from the very bottom of its specific branch.
+            
+//             const left = nums.slice(0,half)
+//             const right = nums.slice(half)
+            
+//             const leftSorted = subArrForm(left)
+            
+//             const rightSorted = subArrForm(right)
+            
+//             const merge = ((leftSorted, rightSorted) => {
+//                 let i = 0
+            
+//                 let j = 0
+                
+//                 while(i < leftSorted.length && j < rightSorted.length){
+//                     if(leftSorted[i] < rightSorted[j]){
+//                         merged.push(leftSorted[i])
+//                         i++
+//                     } else {
+//                         merged.push(rightSorted[j])
+//                         j++ 
+//                     }
+//                 }
+//                 while (i < leftSorted.length){
+//                     merged.push(leftSorted[i])
+//                     i++
+//                 }
+                
+//                 while (j < rightSorted.length){
+//                     merged.push(rightSorted[j])
+//                     j++
+//                 }
+//                 return merged
+//             })
+//             return merge(leftSorted, rightSorted)
+//             })
+//             return subArrForm(nums)
+//             }
+//         }
+    
+        // let nums = [7, 4, 1, 5, 3];
+            
+        // let obj = new Solution();
+            
+        // let result = obj.mergeSort(nums);
+            
+        // console.log(result);
