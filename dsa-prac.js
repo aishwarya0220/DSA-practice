@@ -1035,10 +1035,54 @@
 //             }
 //         }
     
-        // let nums = [7, 4, 1, 5, 3];
+//         let nums = [7, 4, 1, 5, 3];
             
-        // let obj = new Solution();
+//         let obj = new Solution();
             
-        // let result = obj.mergeSort(nums);
+//         let result = obj.mergeSort(nums);
             
-        // console.log(result);
+//         console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         bubbleSort(nums) {
+//             let pass = nums.length -1
+//             const outer = ((iteration,pass) => {
+//                 if(iteration >= nums.length - 1){
+//                     return 
+//                 }
+//                 let hasChanged = false
+//                 const inner = ((index,pass) => {
+//                     if(index >= pass){
+//                         return 
+//                     }
+//                     if(nums[index] > nums[index+1]){
+//                         let d = nums[index+1]
+//                         nums[index+1] = nums[index]
+//                         nums[index] = d
+//                         hasChanged = true
+//                     }
+//                     if(index > count-1){
+//                         return break
+//                     } 
+//                     inner(index+1,pass)
+//                 })
+//                 return inner(0,pass)
+//                 outer(iteration+1, pass-1)
+//             })
+//             outer(0, pass)
+//             return nums
+//             }
+//         }
+    
+//         let nums = [7, 4, 1, 5, 3];
+            
+//         let obj = new Solution();
+            
+//         let result = obj.bubbleSort(nums);
+            
+//         console.log(result);
