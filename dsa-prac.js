@@ -1055,34 +1055,37 @@
 //                 if(iteration >= nums.length - 1){
 //                     return 
 //                 }
-//                 let hasChanged = false
-//                 const inner = ((index,pass) => {
-//                     if(index >= pass){
-//                         return 
+//                 const inner = ((index,pass) => {             // outer() → controls passes; inner() → does one pass recursively; currentChanged → whether this comparison caused a swap; restChanged → result returned by the remaining recursive calls.
+//                     if(index >= pass){                       
+//                         return false                         // Recursive calls pass the swap information back upward through return
 //                     }
+//                     let currentChanged = false               // Going down (recursive calls)-- inner(0)- currentChanged = true because 7 > 4 swapped. Then it calls: restChanged = inner(1), currentChanged = true because 7 > 1 swapped. Then: restChanged = inner(2), currentChanged = true because 7 > 5 swapped. Then: restChanged = inner(3), currentChanged = true because 7 > 3 swapped. Then: restChanged = inner(4) (base case) No comparison is possible. return false Meaning: "After this point, no swaps happened." 
 //                     if(nums[index] > nums[index+1]){
-//                         let d = nums[index+1]
+//                         let d = nums[index+1]                // Now the return journey starts. Coming back up Back to inner(3) It receives: restChanged = false But it remembers: currentChanged = true Now: return currentChanged || restChanged becomes: true || false Result: true So inner(3) returns: true Back to inner(2) It receives: restChanged = true Where did this true come from? It came from inner(3). Now: currentChanged = true restChanged = true Return: true || true Result: true inner(2) returns true. Back to inner(1) Receives: restChanged = true Again: currentChanged = true restChanged = true Return: true Back to inner(0) Receives: restChanged = true Now: currentChanged = true restChanged = true Return: true
 //                         nums[index+1] = nums[index]
 //                         nums[index] = d
-//                         hasChanged = true
+//                         currentChanged = true
 //                     }
-//                     if(index > count-1){
-//                         return break
-//                     } 
-//                     inner(index+1,pass)
+                    
+//                     let restChanged = inner(index+1,pass)
+                    
+//                     return restChanged || currentChanged
 //                 })
-//                 return inner(0,pass)
+//                 let hasChanged = inner(0,pass)
+//                 if(!hasChanged){
+//                     return 
+//                 }
 //                 outer(iteration+1, pass-1)
 //             })
 //             outer(0, pass)
 //             return nums
 //             }
 //         }
-    
-//         let nums = [7, 4, 1, 5, 3];
+        
+// let nums = [7, 4, 1, 5, 3];
             
-//         let obj = new Solution();
+// let obj = new Solution();
             
-//         let result = obj.bubbleSort(nums);
+// let result = obj.bubbleSort(nums);
             
-//         console.log(result);
+// console.log(result);
