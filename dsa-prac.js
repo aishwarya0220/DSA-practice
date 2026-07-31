@@ -1089,3 +1089,38 @@
 // let result = obj.bubbleSort(nums);
             
 // console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         insertionSort(nums) {
+            
+//             const outer = ((iteration) => {
+//                 if(iteration >= nums.length){
+//                     return
+//                 }
+//                 let key = nums[iteration]           
+//                 const inner = ((index) => {
+//                     if(index == 0){
+//                         nums[index] = key
+//                         return
+//                     } else if(nums[index-1] <= key){
+//                         nums[index] = key
+//                         return
+//                     }
+//                     if(nums[index-1] > key){
+//                         nums[index] = nums[index-1]
+//                     }
+                    
+//                     inner(index-1)
+//                 })
+//                 inner(iteration)
+//                 outer(iteration+1)
+//             })
+//             outer(1)
+//             return nums
+//         }
+//     }
