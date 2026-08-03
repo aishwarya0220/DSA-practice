@@ -1132,50 +1132,62 @@
 
 
 class Solution {
-        quickSort(nums) {
-            const outer = ((startIndex, endIndex) => {
-                if(startIndex == endIndex || startIndex > endIndex){
-                    return 
-                }
-                let pivotIndex = startIndex
-                let leftIndex = startIndex + 1
-                let rightIndex = endIndex
+    quickSort(nums) {
+        
+        const partition = ((startIndex, endIndex) => {
+            if(startIndex >= endIndex ){
+                return 
+            }
+            
+            let pivotIndex = startIndex
+            let leftIndex = startIndex + 1
+            let rightIndex = endIndex
+            
+            while(leftIndex <= rightIndex){
                 
-                while(leftIndex < rightIndex){
-                    while(leftIndex >= endIndex && nums[pivotIndex] >= nums[leftIndex]){
-                        leftIndex++
-                    }
-                    while(rightIndex <= startIndex && nums[pivotIndex] <= nums[rightIndex]){
-                        rightIndex--
+                while(leftIndex < endIndex && nums[pivotIndex] >= nums[leftIndex]){
+                    leftIndex++
+                }
+                
+                while(rightIndex > startIndex && nums[pivotIndex] < nums[rightIndex]){
+                    rightIndex--
+                    
+                }
+                
+                if(leftIndex < rightIndex){
+                        let d = nums[rightIndex]
+                        nums[rightIndex] = nums[leftIndex]
+                        nums[leftIndex] = d 
                         
+                        leftIndex++
+                        rightIndex--
                     }
                     
-                    if(nums[pivotIndex] < nums[leftIndex] && nums[pivotIndex] > nums[rightIndex]){
-                            let d = nums[rightIndex]
-                            nums[rightIndex] = nums[leftIndex]
-                            nums[leftIndex] = d
-                            leftIndex++
-                            rightIndex--
-                        }
-                }
-                if(leftIndex >= rightIndex){
-                    let d = nums[rightIndex]
-                    nums[rightIndex] = nums[pivotIndex]
-                    nums[pivotIndex] = d
-                    return rightIndex
-                }
-                // outer(recursive call)
-                })
-            outer(0, nums.length - 1)
-            return nums
             }
-        }
             
-    let nums = [7, 4, 1, 5, 3]
-                
-    let obj = new Solution();
-                
-    let result = obj.quickSort(nums);
-                
-    console.log(result);
-    
+            if(leftIndex >= rightIndex){
+                let d = nums[rightIndex]
+                nums[rightIndex] = nums[pivotIndex]
+                nums[pivotIndex] = d
+            }
+            console.log(startIndex, rightIndex-1)
+            console.log(rightIndex+1, endIndex)
+            partition(startIndex, rightIndex - 1)
+            partition(rightIndex+1, endIndex)
+            
+            return rightIndex
+            })
+            
+        partition(0, nums.length - 1)
+        return nums
+        
+        }
+    }
+        
+let nums = [7,4,1,5,3]
+            
+let obj = new Solution();
+            
+let result = obj.quickSort(nums);
+            
+console.log(result);
