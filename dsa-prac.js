@@ -1131,63 +1131,67 @@
 
 
 
-class Solution {
-    quickSort(nums) {
+// class Solution {
+//     quickSort(nums) {
         
-        const partition = ((startIndex, endIndex) => {
-            if(startIndex >= endIndex ){
-                return 
-            }
+//         const partition = ((startIndex, endIndex) => {
+//             if(startIndex >= endIndex ){
+//                 return
+//             }
             
-            let pivotIndex = startIndex
-            let leftIndex = startIndex + 1
-            let rightIndex = endIndex
+//             let pivotIndex = startIndex
+//             let leftIndex = startIndex + 1
+//             let rightIndex = endIndex
             
-            while(leftIndex <= rightIndex){
+//             while(leftIndex <= rightIndex){
                 
-                while(leftIndex < endIndex && nums[pivotIndex] >= nums[leftIndex]){
-                    leftIndex++
-                }
+//                 while(leftIndex <= endIndex && nums[pivotIndex] >= nums[leftIndex]){
+//                     leftIndex++
+//                 }
                 
-                while(rightIndex > startIndex && nums[pivotIndex] < nums[rightIndex]){
-                    rightIndex--
+//                 while(rightIndex >= startIndex && nums[pivotIndex] < nums[rightIndex]){
+//                     rightIndex--
                     
-                }
+//                 }
                 
-                if(leftIndex < rightIndex){
-                        let d = nums[rightIndex]
-                        nums[rightIndex] = nums[leftIndex]
-                        nums[leftIndex] = d 
+//                 if(leftIndex < rightIndex){
+//                         [nums[rightIndex], nums[leftIndex]] = [nums[leftIndex], nums[rightIndex]]
                         
-                        leftIndex++
-                        rightIndex--
-                    }
+//                         // leftIndex++
+//                         // rightIndex--
+//                     }
                     
-            }
+//             }
             
-            if(leftIndex >= rightIndex){
-                let d = nums[rightIndex]
-                nums[rightIndex] = nums[pivotIndex]
-                nums[pivotIndex] = d
-            }
-            console.log(startIndex, rightIndex-1)
-            console.log(rightIndex+1, endIndex)
-            partition(startIndex, rightIndex - 1)
-            partition(rightIndex+1, endIndex)
+//             if(leftIndex >= rightIndex){
+                
+//                 [nums[rightIndex], nums[pivotIndex]] = [nums[pivotIndex], nums[rightIndex]]
+                
+//             }
+//             console.log(startIndex, rightIndex-1)
+//             console.log(rightIndex+1, endIndex)
+//             partition(startIndex, rightIndex - 1)
+//             partition(rightIndex+1, endIndex)
             
-            return rightIndex
-            })
+//             return rightIndex
+//             })
             
-        partition(0, nums.length - 1)
-        return nums
+//         partition(0, nums.length - 1)
+//         return nums
         
-        }
-    }
+//         }
+//     }
         
-let nums = [7,4,1,5,3]
+// let nums = [7,4,1,5,3]
             
-let obj = new Solution();
+// let obj = new Solution();
             
-let result = obj.quickSort(nums);
+// let result = obj.quickSort(nums);
             
-console.log(result);
+// console.log(result);
+
+
+
+
+
+
