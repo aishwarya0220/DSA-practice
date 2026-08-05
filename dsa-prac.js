@@ -1195,3 +1195,47 @@
 
 
 
+
+// class Solution {
+//         removeDuplicates(nums) {
+//             let k = 1
+//             for(let i = 1; i < nums.length; i++){
+//                 if(nums[i] !== nums[k-1]){
+//                     nums[k] = nums[i] 
+//                     k++
+//                 }
+//             }    
+//             return k
+//         }
+//     }
+
+
+    
+
+
+
+
+// class Solution {
+//     rotateArray(nums, k) {
+//         if(k > nums.length){
+//             k = k % nums.length
+//         }
+//         let tempArr = []
+//         tempArr = nums.slice(0,k)
+
+//         for(let i = k; i < nums.length; i++){
+//             nums[i-k] = nums[i]
+//         }
+//         for(let j = k + 1; j < nums.length; j++){
+//             nums[j] = tempArr[]
+//         }
+//     }
+// }
+
+// let nums = [1, 2, 3, 4, 5]
+
+// let obj = new Solution();
+            
+// let result = obj.rotateArray(nums);
+            
+// console.log(result);
