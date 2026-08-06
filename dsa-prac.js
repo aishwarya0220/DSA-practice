@@ -1216,26 +1216,70 @@
 
 
 // class Solution {
-//     rotateArray(nums, k) {
-//         if(k > nums.length){
-//             k = k % nums.length
-//         }
-//         let tempArr = []
-//         tempArr = nums.slice(0,k)
-
-//         for(let i = k; i < nums.length; i++){
-//             nums[i-k] = nums[i]
-//         }
-//         for(let j = k + 1; j < nums.length; j++){
-//             nums[j] = tempArr[]
+//         rotateArray(nums, k) {
+//             if(k >= nums.length){
+//                 k = k % nums.length
+//             }
+//             let leftA = 0
+//             let rightA = k -1
+//             while(leftA < rightA){
+//                 [nums[rightA], nums[leftA]] = [nums[leftA], nums[rightA]]       // three reversal algorithm
+//                 leftA++
+//                 rightA--
+//             }
+            
+//             let leftB = k
+//             let rightB = nums.length -1
+//             while(leftB < rightB){
+//                 [nums[rightB], nums[leftB]] = [nums[leftB], nums[rightB]]
+//                 leftB++
+//                 rightB--
+//             }
+            
+//             let left = 0
+//             let right = nums.length - 1
+//             while(left < right){
+//                 [nums[right], nums[left]] = [nums[left], nums[right]]
+//                 left++
+//                 right--
+//             }
+//             return nums   
 //         }
 //     }
-// }
+    
+//     let nums = [1, 2, 3, 4, 5, 6, 7]
+    
+//     let obj = new Solution();
+                
+//     let result = obj.rotateArray(nums,3);
+                
+//     console.log(result);
+ 
 
-// let nums = [1, 2, 3, 4, 5]
 
-// let obj = new Solution();
-            
-// let result = obj.rotateArray(nums);
-            
-// console.log(result);
+
+
+
+class Solution {
+        moveZeroes(nums) {
+           for(let i = 0; i < nums.length; i++){
+               if(nums[i] == 0){
+                   let temp = nums[i]
+                   for(let j = i; j < nums.length - j; j++){
+                       nums[j] = nums[j+1]
+                   }
+                   nums[nums.length - 1] = temp
+                   i--
+               }
+        }
+        return nums
+        }
+    }
+    
+    let nums = [1, 0, 0, 2]
+                
+    let obj = new Solution();
+                
+    let result = obj.moveZeroes(nums);
+                
+    console.log(result);
