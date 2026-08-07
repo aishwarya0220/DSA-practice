@@ -1260,26 +1260,82 @@
 
 
 
+
+// class Solution {
+//     moveZeroes(nums) {
+//         let n = nums.length
+
+//         for(let i = 0; i < n; i++){
+           
+//            if(nums[i] == 0){
+
+//                for(let j = i; j < n - 1; j++){
+//                    nums[j] = nums[j+1]
+//                }
+               
+//                nums[n - 1] = 0
+               
+//                i--                      // using it unconditionally runs into inf loop at end while processing already moved 0s
+//                n--                      // reduces the search area with each moving of 0 thereby avoidg inf loop. 
+//            }
+//     }
+//     return nums
+//     }
+// }
+
+// let nums = [1, 2, 3, 0, 0, 0, 5, 0, 0]  // for this arr, after reaching 0s at end, it moves them back again and does n-- so no inf loop
+
+
+
+
+
+
+// class Solution {
+//     moveZeroes(nums) {
+//         let placementPointer = 0
+//         for(let i = 0; i < nums.length; i++){
+//             if(nums[i] !== 0){
+//                 if(i == placementPointer){
+//                     continue
+//                 }
+//                 [nums[placementPointer], nums[i]] = [nums[i], nums[placementPointer]]
+//                 placementPointer++
+//             }
+//         }
+//         return nums
+//     }
+// }
+
+
+
+
+
+
+
 class Solution {
-        moveZeroes(nums) {
-           for(let i = 0; i < nums.length; i++){
-               if(nums[i] == 0){
-                   let temp = nums[i]
-                   for(let j = i; j < nums.length - j; j++){
-                       nums[j] = nums[j+1]
-                   }
-                   nums[nums.length - 1] = temp
-                   i--
-               }
+    unionArray(nums1, nums2) {
+        for(let i = 0; i < nums2.length; i++){      // merge
+            nums1.push(nums2[i])
         }
-        return nums
+        for(let j = 0; j < nums1.length; j++){      // sort
+            for(let k = 0; k < nums1.length; k++){
+                if(nums1[j] < nums1[k]){
+                    [nums1[k], nums1[j]] = [nums1[j], nums1[k]]
+                }
+            }
+        }
+        for(let l = 0; l < nums.length; l++){       // remove duplicates
+            if(nums1[l] )
         }
     }
-    
-    let nums = [1, 0, 0, 2]
-                
-    let obj = new Solution();
-                
-    let result = obj.moveZeroes(nums);
-                
-    console.log(result);
+}
+
+let nums1 = [1, 2, 3, 4, 5]
+
+let nums2 = [1, 2, 7]
+            
+let obj = new Solution();
+            
+let result = obj.unionArray(nums1, nums2);
+            
+console.log(result);
