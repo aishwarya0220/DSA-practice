@@ -1312,27 +1312,98 @@
 
 
 
+// class Solution {
+//     unionArray(nums1, nums2) {
+//         for(let i = 0; i < nums2.length; i++){      // merge
+//             nums1.push(nums2[i])
+//         }
+//         for(let j = 0; j < nums1.length; j++){      // sort
+//             for(let k = 0; k < nums1.length; k++){
+//                 if(nums1[j] < nums1[k]){
+//                     [nums1[k], nums1[j]] = [nums1[j], nums1[k]]
+//                 }
+//             }
+           
+//         }           //   1, 1, 2, 2,
+//                     //   3, 4, 5, 7
+//         let k = 1
+//         let duplicates = 0
+        
+//         for(let l = 1; l < nums1.length; l++){       // remove duplicates
+//             if(nums1[l] !== nums1[k-1]){
+//                 nums1[k] = nums1[l]
+//                 k++
+//             }
+//             else {
+//                 duplicates++
+//             }
+//         }
+//         nums1.length -= duplicates
+//         return nums1
+//     }
+// }
+
+// let nums1 = [1, 2, 3, 4, 5]
+
+// let nums2 = [1, 2, 7]
+            
+// let obj = new Solution();
+            
+// let result = obj.unionArray(nums1, nums2);
+            
+// console.log(result);
+
+
+
+
+
+
+
 class Solution {
     unionArray(nums1, nums2) {
-        for(let i = 0; i < nums2.length; i++){      // merge
-            nums1.push(nums2[i])
-        }
-        for(let j = 0; j < nums1.length; j++){      // sort
-            for(let k = 0; k < nums1.length; k++){
-                if(nums1[j] < nums1[k]){
-                    [nums1[k], nums1[j]] = [nums1[j], nums1[k]]
-                }
+        let arrUnion = []
+        let nums1Pointer = 0
+        let nums2Pointer = 0
+        for(let i = 0; i < Infinity; i++){
+            
+            if(nums1[nums1Pointer] == undefined && nums2[nums2Pointer] == undefined){
+                break
             }
+
+            let value
+
+            if(nums1[nums1Pointer] !== undefined && nums2[nums2Pointer] !== undefined){
+
+                if(nums1[nums1Pointer] < nums2[nums2Pointer]){
+                        value = nums1[nums1Pointer]
+                        nums1Pointer++
+                } else if(nums1[nums1Pointer] > nums2[nums2Pointer]){
+                        value = nums2[nums2Pointer]
+                        nums2Pointer++
+                } else {
+                        value = nums1[nums1Pointer]
+                        nums1Pointer++
+                        nums2Pointer++
+                }
+            } else if(nums1[nums1Pointer] == undefined){
+                arrUnion.push(nums2[nums2Pointer])
+                nums2Pointer++
+            } else if(nums2[nums2Pointer] == undefined){
+                arrUnion.push(nums1[nums1Pointer])
+                nums1Pointer++
+            }
+            if(value !== arrUnion[arrUnion.length - 1]){
+                arrUnion.push(value)
+            }
+            
         }
-        for(let l = 0; l < nums.length; l++){       // remove duplicates
-            if(nums1[l] )
-        }
+        return arrUnion
     }
 }
 
-let nums1 = [1, 2, 3, 4, 5]
+let nums1 =  [3, 4, 6, 7, 9, 9]
 
-let nums2 = [1, 2, 7]
+let nums2 = [1, 5, 7, 8, 8]
             
 let obj = new Solution();
             
