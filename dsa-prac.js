@@ -1247,13 +1247,13 @@
 //         }
 //     }
     
-//     let nums = [1, 2, 3, 4, 5, 6, 7]
+    // let nums = [1, 2, 3, 4, 5, 6, 7]
     
-//     let obj = new Solution();
+    // let obj = new Solution();
                 
-//     let result = obj.rotateArray(nums,3);
+    // let result = obj.rotateArray(nums,3);
                 
-//     console.log(result);
+    // console.log(result);
  
 
 
@@ -1359,54 +1359,95 @@
 
 
 
-class Solution {
-    unionArray(nums1, nums2) {
-        let arrUnion = []
-        let nums1Pointer = 0
-        let nums2Pointer = 0
-        for(let i = 0; i < Infinity; i++){
+// class Solution {
+//     unionArray(nums1, nums2) {
+//         let arrUnion = []
+//         let nums1Pointer = 0
+//         let nums2Pointer = 0
+//         for(let i = 0; i < Infinity; i++){
             
-            if(nums1[nums1Pointer] == undefined && nums2[nums2Pointer] == undefined){
-                break
-            }
+//             if(nums1[nums1Pointer] == undefined && nums2[nums2Pointer] == undefined){
+//                 break
+//             }
 
-            let value
+//             let value
 
-            if(nums1[nums1Pointer] !== undefined && nums2[nums2Pointer] !== undefined){
+//             if(nums1[nums1Pointer] !== undefined && nums2[nums2Pointer] !== undefined){
 
-                if(nums1[nums1Pointer] < nums2[nums2Pointer]){
-                        value = nums1[nums1Pointer]
-                        nums1Pointer++
-                } else if(nums1[nums1Pointer] > nums2[nums2Pointer]){
-                        value = nums2[nums2Pointer]
-                        nums2Pointer++
-                } else {
-                        value = nums1[nums1Pointer]
-                        nums1Pointer++
-                        nums2Pointer++
-                }
-            } else if(nums1[nums1Pointer] == undefined){
-                arrUnion.push(nums2[nums2Pointer])
-                nums2Pointer++
-            } else if(nums2[nums2Pointer] == undefined){
-                arrUnion.push(nums1[nums1Pointer])
-                nums1Pointer++
-            }
-            if(value !== arrUnion[arrUnion.length - 1]){
-                arrUnion.push(value)
-            }
+//                 if(nums1[nums1Pointer] < nums2[nums2Pointer]){
+//                         value = nums1[nums1Pointer]
+//                         nums1Pointer++
+//                 } else if(nums1[nums1Pointer] > nums2[nums2Pointer]){
+//                         value = nums2[nums2Pointer]
+//                         nums2Pointer++
+//                 } else {
+//                         value = nums1[nums1Pointer]
+//                         nums1Pointer++
+//                         nums2Pointer++
+//                 }
+//             } else if(nums1[nums1Pointer] == undefined){
+//                 arrUnion.push(nums2[nums2Pointer])
+//                 nums2Pointer++
+//             } else if(nums2[nums2Pointer] == undefined){
+//                 arrUnion.push(nums1[nums1Pointer])
+//                 nums1Pointer++
+//             }
+//             if(value !== arrUnion[arrUnion.length - 1]){
+//                 arrUnion.push(value)
+//             }
             
-        }
-        return arrUnion
-    }
-}
+//         }
+//         return arrUnion
+//     }
+// }
 
-let nums1 =  [3, 4, 6, 7, 9, 9]
+// let nums1 =  [3, 4, 6, 7, 9, 9]
 
-let nums2 = [1, 5, 7, 8, 8]
+// let nums2 = [1, 5, 7, 8, 8]
             
-let obj = new Solution();
+// let obj = new Solution();
             
-let result = obj.unionArray(nums1, nums2);
+// let result = obj.unionArray(nums1, nums2);
             
-console.log(result);
+// console.log(result);
+
+
+
+
+
+
+
+// class Solution {
+//     missingNumber(nums) {
+//         let accumulator = nums.length               // n.length to include 5 as it cant take it as condition in loop
+//         for(let i = 0; i < nums.length; i++){
+//             accumulator ^= i ^ nums[i]              // XOR; complete conceptual XOR is 5 ^ 0 ^ 1 ^ 2 ^ 3 ^ 4 ^ 5 ^ 0 ^ 2 ^ 3 ^ 1 ^ 5
+//         }                                           // XOR properties like commutativity help it from not being concerned by the order
+//         return accumulator                          
+//     }
+// }
+
+// let nums = [0, 2, 3, 1, 5]
+    
+// let obj = new Solution();
+                
+// let result = obj.missingNumber(nums);
+                
+// console.log(result);
+
+
+
+
+
+
+// class Solution {
+//     singleNumber(nums) {
+//         let key = 0                                  // initialize as 0 so that XOR operation starts as 0 XOR x = x and not undefined XOR x(if only write- let key)
+//         for(let i = 0; i < nums.length; i++){
+//             key ^= nums[i]                           // array conducts XOR operation with itself as arr has all elements twice except a single element
+//         }
+//         return key
+//     }
+// }
+
+// let nums = [1, 2, 2, 4, 3, 1, 4]
