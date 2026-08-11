@@ -1451,3 +1451,30 @@
 // }
 
 // let nums = [1, 2, 2, 4, 3, 1, 4]
+
+
+
+
+
+
+
+
+// class Solution {
+//     longestSubarray(nums, k) {
+//        let lastSumArr = 0
+       
+//        for(let i = 0; i < nums.length; i++){
+//            let currSum = 0
+//            for(let j = i; j < nums.length; j++){
+//                currSum += nums[j]
+//                if(currSum == k){
+//                    if((j-i+1) > lastSumArr){
+//                        lastSumArr = j-i+1
+//                        continue
+//                    }
+//                }
+//            }
+//        }
+//        return lastSumArr
+//     }
+// }
