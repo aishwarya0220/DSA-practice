@@ -1478,3 +1478,39 @@
 //        return lastSumArr
 //     }
 // }
+
+
+
+
+
+
+// class Solution {
+//         longestSubarray(nums, k) {
+//            let cumulativeSum = 0
+//            let lsa = 0
+//            let requiredSum = 0
+//            let map = new Map()
+//            map.set(0,-1)                                     // cumulative sum before filling values is 0
+           
+//         for(let i = 0; i < nums.length; i++){
+            
+//             cumulativeSum += nums[i]
+    
+//             requiredSum = cumulativeSum - k
+    
+//             if(map.has(requiredSum)){
+//                 if((i-map.get(requiredSum))>lsa){
+//                 lsa = i - map.get(requiredSum) 
+//            }
+//             }     
+//         if(!map.has(cumulativeSum)){                         // to solve 1,2,-3,16,9 type problems and therefore stops overwriting 
+                                                                // values if 0(as CS) appeared at multiple keys due to -ve numbers
+//         map.set(cumulativeSum,i)
+//         }
+        
+//             // console.log(map)
+    
+//         }
+//         return lsa
+//     }
+//     }
