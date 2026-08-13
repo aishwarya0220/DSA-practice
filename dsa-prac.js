@@ -1514,3 +1514,40 @@
 //         return lsa
 //     }
 //     }
+
+
+
+
+
+
+
+// class Solution {
+//         sortZeroOneTwo(nums) {
+//             let zeroPointer = 0
+//             let onePointer = 0
+//             let twoPointer = nums.length - 1
+    
+//             while(onePointer <= twoPointer){                         // sort array of 0,1&2s. Optimal solution can be - 1) counting the occurence using 1 for and then putting them in the og array using a loop for each number. though this is also optimal, it takes extra passes whereas
+//                     if(nums[onePointer] == 0){                       // this(Dutch flag algo) solves it with a single traversal
+//                             [nums[onePointer], nums[zeroPointer]] = [nums[zeroPointer], nums[onePointer]]
+//                             zeroPointer++
+//                             onePointer++
+//                     } else if(nums[onePointer] == 1){
+//                             onePointer++
+//                     } else {
+//                             [nums[onePointer], nums[twoPointer]] = [nums[twoPointer], nums[onePointer]]
+//                             twoPointer--
+//                     }
+//             }
+//             return nums
+//            }
+//     }
+    
+    
+//     let nums = [1, 0, 2, 1, 0]
+        
+//     let obj = new Solution();
+                    
+//     let result = obj.sortZeroOneTwo(nums);
+                    
+//     console.log(result);
