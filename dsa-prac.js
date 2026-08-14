@@ -1551,3 +1551,66 @@
 //     let result = obj.sortZeroOneTwo(nums);
                     
 //     console.log(result);
+
+
+
+
+
+
+
+// class Solution {
+//         majorityElement(nums) {
+//             let candidate = 0
+//             let count = 0
+//             for(let i = 0; i < nums.length; i++){                    // Boyer-Moore majority vote
+//                     if(count == 0){
+//                             candidate = nums[i]
+//                     }
+    
+//                     if(candidate == nums[i]){
+//                             count++
+//                     } else {
+//                             count--
+//                     }
+//             }
+//             return candidate
+//         }
+//     }
+
+
+
+
+
+
+// class Solution {
+//         maxSubArray(nums) {
+//             let maxSum = nums[0]
+            
+//             for(let i = 0; i < nums.length; i++){
+//                     let currSum = nums[i]
+    
+//             if(currSum > maxSum){
+//                 maxSum = currSum
+//             }
+    
+//                     for(let j = i+1; j < nums.length; j++){
+    
+//                             currSum += nums[j]
+    
+//                 if(currSum > maxSum){
+//                     maxSum = currSum
+//                 }
+    
+//                     }
+//             }
+//             return maxSum
+//         }
+//     }
+    
+//     let nums = [-5, -2, -8]
+        
+//     let obj = new Solution();
+                    
+//     let result = obj.maxSubArray(nums);
+                    
+//     console.log(result);
