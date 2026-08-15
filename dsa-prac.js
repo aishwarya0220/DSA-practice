@@ -1614,3 +1614,103 @@
 //     let result = obj.maxSubArray(nums);
                     
 //     console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         maxSubArray(nums) {
+//             let currSum = nums[0]
+//             let maxSum = nums[0]
+    
+//             for(let i = 1; i < nums.length; i++){
+//                     currSum += nums[i]
+    
+//                     if(currSum < nums[i]){
+//                             currSum = nums[i]
+//                     }
+    
+//                     if(currSum > maxSum){
+//                             maxSum = currSum
+//                     }
+//             }
+//             return maxSum
+//         }
+//     }
+    
+//     let nums = [-5, -2, -8]
+        
+//     let obj = new Solution();
+                    
+//     let result = obj.maxSubArray(nums);
+                    
+//     console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         stockBuySell(arr, n) {
+//             let minPrice = arr[0]
+//             let diff = 0
+//             let profit = 0
+    
+//             for(let i = 0; i < arr.length; i++){
+//                     diff = arr[i] - minPrice
+//                     if(minPrice > arr[i]){
+//                             minPrice = arr[i]
+//                     }
+    
+//                     if(diff > profit){
+//                             profit = diff
+//                     }
+//             }
+//             return profit
+//         }
+//     }
+    
+    
+//     let arr = [10, 7, 5, 8, 11, 9]
+        
+//     let obj = new Solution();
+                    
+//     let result = obj.stockBuySell(arr, 6);
+                    
+//     console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         rearrangeArray(nums) {
+//             let resultArr = []
+    
+//             let evenPointer = 0
+//             let oddPointer = 1
+    
+//             for(let i = 0; i < nums.length; i++){
+//                     if(nums[i] > 0){
+//                             resultArr[evenPointer] = nums[i]
+//                             evenPointer = evenPointer + 2
+//                     } else {
+//                             resultArr[oddPointer] = nums[i]
+//                             oddPointer = oddPointer + 2
+//                     }
+//             }
+//             return resultArr
+//         }
+//     }
+    
+//     let nums = [2, 4, 5, -1, -3, -4]
+        
+//     let obj = new Solution();
+                    
+//     let result = obj.rearrangeArray(nums);
+                    
+//     console.log(result);
