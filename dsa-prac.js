@@ -1707,10 +1707,57 @@
 //         }
 //     }
     
-//     let nums = [2, 4, 5, -1, -3, -4]
-        
-//     let obj = new Solution();
-                    
-//     let result = obj.rearrangeArray(nums);
-                    
-//     console.log(result);
+// let nums = [2, 4, 5, -1, -3, -4]
+
+// let obj = new Solution();
+                
+// let result = obj.rearrangeArray(nums);
+                
+// console.log(result);
+
+
+
+
+
+
+// class Solution {
+//         nextPermutation(nums) {
+    
+//             let breakPoint = -1
+    
+//             for(let i = nums.length - 2; i >= 0; i--){
+//                     if(nums[i] < nums[i+1]){
+//                             breakPoint = i
+//                             break
+//                     }
+//             }
+    
+//             if(breakPoint == -1){
+//                     return nums.reverse()
+//             }
+    
+//             for(let j = nums.length - 1; j > breakPoint; j--){
+//                     if(nums[j] > nums[breakPoint]){
+//                             [nums[j], nums[breakPoint]] = [nums[breakPoint], nums[j]]
+//                             break
+//                     }
+//             }
+    
+//             let rightPointer = nums.length - 1
+    
+//             while(rightPointer > breakPoint+1){
+//                     [nums[rightPointer], nums[breakPoint+1]] = [nums[breakPoint+1], nums[rightPointer]]
+//             rightPointer--
+//             breakPoint++
+//             }
+    
+    
+//             return nums	
+//         }
+//     }
+    
+
+
+
+
+
