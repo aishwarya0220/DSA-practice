@@ -1761,3 +1761,67 @@
 
 
 
+// class Solution {
+//         leaders(nums) {
+    
+        
+//             let resultArr = []
+    
+//             let largestNo = nums[nums.length - 1]
+    
+//             resultArr.push(largestNo)
+    
+//             for(let i = nums.length - 2; i > 0; i--){
+//                     if(largestNo < nums[i]){
+//                             largestNo = nums[i]
+//                             resultArr.push(largestNo)
+//                     }
+//                    }
+    
+//             let leftPointer = 0
+    
+//             let rightPointer = resultArr.length - 1
+    
+//             while(leftPointer < rightPointer){
+//                     [resultArr[leftPointer], resultArr[rightPointer]] = [resultArr[rightPointer], resultArr[leftPointer]]
+//                 leftPointer++
+//                 rightPointer--
+//             }
+//             return resultArr
+//         }
+//     }
+
+
+
+
+
+
+// class Solution {
+//         longestConsecutive(nums){
+//             let set = new Set(nums)
+    
+//             let longestSeq = 0
+    
+//             for(const num of set){
+    
+//             let desiredSeq = 0
+    
+//             let current = num
+//                     if(!set.has(num-1)){             // clever trick to stop repetitively checking each number in sequence and directly identify the starting point of the sequence
+    
+//                             desiredSeq = 1           // TC = O(n) despite nested loops bcoz inner loop processes each element of consecutive sequence only when we encounter its starting element.
+                                                        // eg if arr=[1,2,3,4,5], inner loop runs only to process 2,3,4,5. 
+                                                        // similarly for [1, 2, 3, 10, 11, 20, 21], for 1 -> inner loop processes 1,2,3. for 10 -> 10,11, for 20 -> 20,21 thus 3+2+2=7
+//                             while(set.has(current+1)){
+//                                     desiredSeq++
+//                                     current++
+//                             }
+//                     if(desiredSeq > longestSeq){
+//                             longestSeq = desiredSeq
+//                     }
+//                     }
+//             }
+//             return longestSeq
+//         }
+//     }
+    
