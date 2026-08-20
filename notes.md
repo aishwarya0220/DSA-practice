@@ -19,3 +19,9 @@ Patterns
 | Count elements    | `set.size`      |               O(1) |
 | Iterate           | `for...of`      |               O(n) |
 | Clear             | `set.clear()`   |               O(n) |
+
+
+
+2) Matrix based problems
+
+Define the 4 boundaries of matrix(top,bottom,left,right) and work around those boundaries (95% matrix interview problems follow same pattern)
