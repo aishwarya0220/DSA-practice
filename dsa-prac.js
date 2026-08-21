@@ -1826,3 +1826,35 @@
 //         }
 //     }
     
+
+
+
+
+// /**
+//  * @param {number[][]} matrix
+//  * @return {void} Do not return anything, modify matrix in-place instead.
+//  */
+// var rotate = function(matrix) {
+// 	let n = matrix.length
+// 	let right = matrix.length - 1
+// 	let bottom = matrix.length - 1
+// 	for(let layer = 0; layer < n; layer++){
+//         if(layer >= bottom){
+//             break
+//         }
+// 		for(let j = layer; j < matrix[0].length; j++){
+// 			[matrix[layer][j], matrix[j][right], matrix[bottom][n-right], matrix[n-right][n-bottom]] = [matrix[j][right], matrix[bottom][n-right], matrix[n-right][n-bottom], matrix[layer][j]]
+// 		}
+// 	right--
+// 	bottom--
+// 	}
+// };
+
+// let matrix = [[1,2,3],[4,5,6],[7,8,9]]
+
+
+// // Call the function
+// rotate(matrix);
+
+// // Print the modified matrix
+// console.log(matrix);
