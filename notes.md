@@ -61,3 +61,50 @@ Define the 4 boundaries of matrix(top,bottom,left,right) and work around those b
 | Join with space        | arr.join(" ")                |               O(n) |
 | Join with comma        | arr.join(",")                |               O(n) |
 | Join with delimiter    | arr.join("-")                |               O(n) |
+
+
+4) Backtracking template - 
+
+def backtrack(params):
+    if base_case_condition:
+        results.append(copy_of_solution)
+        return
+
+    for choice in choices:                          for (let choice of getChoices()) {
+        if violates_constraints:                        if (isValid(choice, state)) { // Constraint check
+            continue
+
+        make_choice                                         current.push()
+
+        backtrack(updated_params)                           backtrack(update-params)
+
+        undo_choice  # backtracking step                    current.pop()
+
+                                                        }
+                                                    }
+
+
+
+5) Hash Map
+
+map.set(key, value) → Adds/updates a key-value pair.
+map.set("a", 10)
+
+map.get(key) → Returns the value associated with the key.
+map.get("a") → 10
+
+map.has(key) → Returns true if key exists, otherwise false.
+map.has("a") → true
+
+map.delete(key) → Removes the key-value pair.
+map.delete("a")
+
+map.size → Returns number of key-value pairs.
+map.size → 1
+
+map.clear() → Removes all key-value pairs.
+
+Iteration
+map.keys() → Gives all keys.
+map.values() → Gives all values.
+map.entries() → Gives all [key, value] pairs.
