@@ -83,6 +83,11 @@ def backtrack(params):
                                                         }
                                                     }
 
+How do you develop the intuition for recursive parameters?
+- Don't start by asking: "What parameters should my recursive function have?"
+
+- Instead ask: "What information do I need to remember to describe where I am in the problem?", "What is changing on every recursive call?"
+
 
 
 5) Hash Map
