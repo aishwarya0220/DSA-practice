@@ -177,3 +177,121 @@ map.entries() → Gives all [key, value] pairs.
 TC = log base 2 of n represents the power to which the number 2 must be raised to get n. In simpler terms, it answers the question: "How many times do I have to divide n by 2 before I get down to 1?"
 
 For overflow cases(range b/w low and high is INT_MAX) - use bigInt. Can use formula = low + (high-low)/2
+
+
+6) Linked List
+
+JavaScript doesn't have a built-in LinkedList data structure like some languages do. We normally create a Node ourselves:
+
+class ListNode {                        // Singly linked list
+    constructor(val) {                  // Each node points forward
+        this.val = val;                 // 10 → 20 → 30 → null
+        this.next = null;
+    }
+}
+
+class ListNode {                        // Doubly linked list
+    constructor(val) {                  // Each node points both directions
+        this.val = val;                 // null ← 10 ⇄ 20 ⇄ 30 → null
+        this.next = null;
+        this.prev = null;
+    }
+}
+
+`Basic Traversal - 
+
+    let curr = head;
+
+    while (curr !== null) {
+        // do something with curr.val
+
+        curr = curr.next;
+    }
+
+`Slow and fast pointers
+
+    let slow = head;
+    let fast = head;
+
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+`Detect a cycle
+
+1 → 2 → 3 → 4
+        ↑     ↓
+        ← ← ←
+
+    let slow = head;
+    let fast = head;
+
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow === fast) {
+            return true;
+        }
+    }
+` Reverse linked list
+
+Given:
+1 → 2 → 3 → 4 → null
+
+Produce:
+4 → 3 → 2 → 1 → null // null <- 1 <- 2 <- 3 <- 4
+
+    let prev = null;
+    let curr = head;
+
+    while (curr !== null) {
+        let next = curr.next;       // save future
+
+        curr.next = prev;           // reverse link
+
+        prev = curr;                // advance prev
+        curr = next;                // advance curr
+    }
+
+State before loop lines: current is at 1, prev is null.
+
+let nextTemp = current.next;
+
+    What it does: We are about to break the link between 1 and 2. To avoid losing the rest of the list (2 -> 3), we save node 2 in nextTemp.
+
+    State: nextTemp points to 2.
+
+current.next = prev;
+
+    What it does: We reverse the pointer. Node 1 now points backward to null (instead of pointing to 2).
+
+    State: List looks like null <- 1 (and 2 -> 3 is floating safely in nextTemp).
+
+prev = current;
+
+    What it does: We slide our prev pointer forward so it catches up to where current is.
+
+    State: prev is now at 1.
+
+current = nextTemp;
+
+    What it does: We slide our current pointer forward to the next node we saved earlier.
+
+    State: current is now at 2
+
+
+
+For a typical singly linked list:
+
+Operation	                Complexity
+Access kth element	        O(n)
+Search	                    O(n)
+Insert at head	            O(1)
+Delete at head	            O(1)
+Insert after known node	    O(1)
+Delete after known node	    O(1)
+Insert at tail	            O(n)*
+Delete at tail	            O(n)
+* If you maintain a tail pointer, insertion at the tail can be O(1)
