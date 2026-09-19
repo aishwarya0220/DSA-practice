@@ -224,17 +224,19 @@ class ListNode {                        // Doubly linked list
         ↑     ↓
         ← ← ←
 
-    let slow = head;
-    let fast = head;
+    let slow = head;                                        // head instead of head.next bcoz helps handling edge cases like list of single node. also
+    let fast = head;                                        // ensures math of catching up predictably regardless of length
 
-    while (fast !== null && fast.next !== null) {
-        slow = slow.next;
-        fast = fast.next.next;
+    while (fast !== null && fast.next !== null) {           // if only check fast !== null, fast could be last node thus fast.next will be null and so 
+        slow = slow.next;                                   // fast.next.next will run as null.next which crashes the code. if fast.next is a val, then
+        fast = fast.next.next;                              // even if fast.next.next = null, it wont crash as fast = null will exit the loop
 
         if (slow === fast) {
             return true;
         }
     }
+
+
 ` Reverse linked list
 
 Given:
@@ -255,32 +257,178 @@ Produce:
         curr = next;                // advance curr
     }
 
-State before loop lines: current is at 1, prev is null.
 
-let nextTemp = current.next;
+`Remove Node(use dummy)
 
-    What it does: We are about to break the link between 1 and 2. To avoid losing the rest of the list (2 -> 3), we save node 2 in nextTemp.
+    const dummy = new ListNode(0);                  // use dummy to avoid head being the node to be removed 
+    dummy.next = head;                              // since prev.next = pre.next.next is safe and std practice due to simplicity,
+                                                    // dummy handles this edge case just like normal logic
+    let prev = dummy;
 
-    State: nextTemp points to 2.
+    while (prev.next !== null) {
+        if (/* delete prev.next */) {
+            prev.next = prev.next.next;             // doesnt cr8 duplicates, rather removes linkage from the node we want to remove
+        } else {
+            prev = prev.next;
+        }
+    }
 
-current.next = prev;
+    return dummy.next;                              // bcoz of .next method on each node, the entire linkage is returned
 
-    What it does: We reverse the pointer. Node 1 now points backward to null (instead of pointing to 2).
 
-    State: List looks like null <- 1 (and 2 -> 3 is floating safely in nextTemp).
+`Pointers with gap
 
-prev = current;
+    let slow = head;
+    let fast = head;
 
-    What it does: We slide our prev pointer forward so it catches up to where current is.
+    // Create a gap of k
+    for (let i = 0; i < k; i++) {
+        fast = fast.next;
+    }
 
-    State: prev is now at 1.
+    // Move together
+    while (fast !== null) {
+        slow = slow.next;
+        fast = fast.next;
+    }
 
-current = nextTemp;
 
-    What it does: We slide our current pointer forward to the next node we saved earlier.
+`Merge sorted lists
 
-    State: current is now at 2
+    function mergeTwoLists(list1, list2) {                  // list1/2 point to the first node of the list
+        const dummy = new ListNode(0);
+        let current = dummy;
 
+        while (list1 !== null && list2 !== null) {
+            if (list1.val <= list2.val) {                   
+                current.next = list1;                       // list1 instead of list1.val bcoz we compare the val of node but physically link the entire
+                list1 = list1.next;                         // node object to the list
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+
+            current = current.next;
+        }
+
+        // Attach whatever remains
+        if (list1 !== null) {                               // prev.next = list1 attaches that current node and everything connected behind it to your 
+            current.next = list1;                           // merged list. don't need to increment list1 = list1.next
+        } else {
+            current.next = list2;
+        }
+
+        return dummy.next;
+    }
+
+- DLL
+
+`Delete a node 
+
+node.prev.next = node.next;
+node.next.prev = node.prev;
+
+`Insert a node
+
+function insertAfter(node, newNode) {
+    newNode.prev = node;
+    newNode.next = node.next;
+
+    node.next.prev = newNode;
+    node.next = newNode;
+}
+
+`Sentinel/dummy nodes                                       // Use sentinel nodes to turn boundary cases into normal cases.
+
+const head = new ListNode(0);
+const tail = new ListNode(0);
+
+head.next = tail;
+tail.prev = head;           // HEAD ⇄ TAIL
+
+`Forward + backward traversal
+
+A ⇄ B ⇄ C ⇄ D ⇄ E
+↑                 ↑
+left            right
+
+left = left.next;
+right = right.prev;
+
+`LRU Cache skeleton                                     // teaches huge amt of dll operations. Design problems are a mix of DS + OOPS
+
+class Node {
+    constructor(key, value) {
+        this.key = key;
+        this.value = value;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class LRUCache {
+    constructor(capacity) {
+        this.capacity = capacity;
+        this.map = new Map();
+
+        this.head = new Node(0, 0);
+        this.tail = new Node(0, 0);
+
+        this.head.next = this.tail;
+        this.tail.prev = this.head;
+    }
+
+    remove(node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    insertAtEnd(node) {
+        node.prev = this.tail.prev;
+        node.next = this.tail;
+
+        this.tail.prev.next = node;
+        this.tail.prev = node;
+    }
+
+    get(key) {
+        if (!this.map.has(key)) {
+            return -1;
+        }
+
+        const node = this.map.get(key);
+
+        this.remove(node);
+        this.insertAtEnd(node);
+
+        return node.value;
+    }
+
+    put(key, value) {
+        if (this.map.has(key)) {
+            const node = this.map.get(key);
+
+            node.value = value;
+
+            this.remove(node);
+            this.insertAtEnd(node);
+
+            return;
+        }
+
+        const node = new Node(key, value);
+
+        this.map.set(key, node);
+        this.insertAtEnd(node);
+
+        if (this.map.size > this.capacity) {
+            const lru = this.head.next;
+
+            this.remove(lru);
+            this.map.delete(lru.key);
+        }
+    }
+}
 
 
 For a typical singly linked list:
@@ -295,3 +443,91 @@ Delete after known node	    O(1)
 Insert at tail	            O(n)*
 Delete at tail	            O(n)
 * If you maintain a tail pointer, insertion at the tail can be O(1)
+
+
+# Stacks
+
+Monotonic stack - A monotonic stack is a specialized stack data structure that keeps its elements in a strictly sorted order—either continuously increasing or decreasing
+
+`Basic syntax 
+
+const stack = [];
+
+stack.push(x);
+
+const top = stack[stack.length - 1];
+
+const removed = stack.pop();
+
+if (stack.length === 0) {
+    // empty
+}
+
+`Next greater element                                           // similar pattern for previous smaller/gr8er element.
+
+function nextGreater(nums) {
+    const result = new Array(nums.length).fill(-1);
+    const stack = [];
+
+    for (let i = 0; i < nums.length; i++) {
+
+        while (
+            stack.length > 0 &&
+            nums[i] > nums[stack[stack.length - 1]]             // < for next smaller
+        ) {
+            const index = stack.pop();
+            result[index] = nums[i];
+        }
+
+        stack.push(i);
+    }
+
+    return result;
+}
+
+`Greedy + Stack (eg. "Remove some elements to make the result smallest/largest.")
+
+function removeKdigits(num, k) {
+    const stack = [];
+
+    for (const digit of num) {
+
+        while (
+            k > 0 &&
+            stack.length &&
+            stack[stack.length - 1] > digit
+        ) {
+            stack.pop();
+            k--;
+        }
+
+        stack.push(digit);
+    }
+
+    while (k > 0) {
+        stack.pop();
+        k--;
+    }
+
+    const result = stack.join("").replace(/^0+/, "");
+
+    return result || "0";
+}
+
+`Universal monotonic stack template 
+
+const stack = [];
+
+for (let i = 0; i < n; i++) {
+
+    while (
+        stack.length &&
+        CONDITION
+    ) {
+        const j = stack.pop();
+
+        // Resolve answer for j
+    }
+
+    stack.push(i);
+}
