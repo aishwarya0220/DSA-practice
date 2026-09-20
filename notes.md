@@ -445,7 +445,9 @@ Delete at tail	            O(n)
 * If you maintain a tail pointer, insertion at the tail can be O(1)
 
 
-# Stacks
+# Stacks 
+
+useful for DFS
 
 Monotonic stack - A monotonic stack is a specialized stack data structure that keeps its elements in a strictly sorted order—either continuously increasing or decreasing
 
@@ -531,3 +533,79 @@ for (let i = 0; i < n; i++) {
 
     stack.push(i);
 }
+
+
+# Queue
+
+useful for BFS
+
+enqueue — add an element to the back
+
+dequeue — remove an element from the front
+
+`Basic syntax
+
+const queue = [];
+let front = 0;
+
+queue.push(value);       // enqueue
+
+const value = queue[front++]; // dequeue(O(1)); value references to the element at the front of queue                // shift() uses O(n)
+
+const size = queue.length - front;
+const isEmpty = front === queue.length;
+
+`Monotonic Queue or deque
+
+normal queue : 
+                add → back
+                remove → front
+
+deque(double-ended queue) : 
+                add/remove ← front
+                add/remove → back
+
+
+function maxSlidingWindow(nums, k) {
+    const deque = [];
+    let front = 0;
+
+    const result = [];
+
+    for (let i = 0; i < nums.length; i++) {
+
+        // Remove elements outside the window
+        while (
+            front < deque.length &&
+            deque[front] <= i - k
+        ) {
+            front++;
+        }
+
+        // Remove smaller elements
+        while (
+            front < deque.length &&
+            nums[deque[deque.length - 1]] <= nums[i]
+        ) {
+            deque.pop();
+        }
+
+        deque.push(i);
+
+        // Window is ready
+        if (i >= k - 1) {
+            result.push(nums[deque[front]]);
+        }
+    }
+
+    return result;
+}
+
+
+
+Operation	    Complexity
+Enqueue	        O(1)
+Dequeue	        O(1)
+Peek front	    O(1)
+Search	        O(n)
+Space	        O(n)
