@@ -602,10 +602,330 @@ function maxSlidingWindow(nums, k) {
 }
 
 
-
 Operation	    Complexity
 Enqueue	        O(1)
 Dequeue	        O(1)
 Peek front	    O(1)
 Search	        O(n)
 Space	        O(n)
+
+
+# Trees
+
+- Creating a tree node -
+
+        class TreeNode {
+            constructor(val, left = null, right = null) {
+                this.val = val;
+                this.left = left;
+                this.right = right;
+            }
+        }
+
+- Creating a tree -- 
+
+        const root = new TreeNode(10);
+
+        root.left = new TreeNode(5);
+        root.right = new TreeNode(20);
+
+        root.left.left = new TreeNode(2);
+        root.left.right = new TreeNode(7);
+
+This creates - 
+
+        10
+       /  \
+      5    20
+     / \
+    2   7
+
+- 4 Fundamental traversal patterns -- 
+
+        DFS
+        ├── Preorder
+        ├── Inorder
+        └── Postorder
+
+        BFS
+        └── Level Order
+
+- DFS template -- 
+
+    function dfs(root) {
+        if (root === null) {
+            return;
+        }
+
+        // Process current node
+
+        dfs(root.left);
+        dfs(root.right);
+    }
+
+
+- Preorder traversal -- root -> left -> right
+
+    function preorder(root) {
+        if (root === null) return;
+
+        console.log(root.val);
+
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+
+- Inorder traversal -- left -> root -> right (for a bst, this produces values in sorted order)
+
+    function inorder(root) {
+        if (root === null) return;
+
+        inorder(root.left);
+
+        console.log(root.val);
+
+        inorder(root.right);
+    }
+
+- Postorder traversal -- left -> right -> root
+
+    function postorder(root) {
+        if (root === null) return;
+
+        postorder(root.left);
+        postorder(root.right);
+
+        console.log(root.val);
+    }
+
+- Complexities 
+
+Traversal - TC = O(n) & SC = O(h);      h = height
+
+
+- BFS --
+
+- Level order traversal - goes level by level
+
+    function levelOrder(root) {
+        if (root === null) {
+            return [];
+        }
+
+        const queue = [root];
+        const result = [];
+
+        let i = 0;
+
+        while (i < queue.length) {
+            const node = queue[i++];            // postfix increment operator follows a specific rule: use the current value right now for the operation
+                                                // and increment it as a side effect afterward. thus node acquires value of queue[0] then i++ is performed
+            result.push(node.val);              // thus root node is pushed first
+
+            if (node.left) {
+                queue.push(node.left);
+            }
+
+            if (node.right) {
+                queue.push(node.right);
+            }
+        }
+
+        return result;
+    }
+
+- Complexities 
+
+Traversal - TC = O(n) & SC = O(w);      w = width
+
+
+- Tree recursion patterns
+
+- - Return something(eg. max/min depth, sum of nodes, number of nodes)
+
+    function maxDepth(root) {
+        if (root === null) {
+            return 0;
+        }
+
+        const left = maxDepth(root.left);
+        const right = maxDepth(root.right);
+
+        return 1 + Math.max(left, right);
+    }
+
+- - Pass information downward / Top-down recursion
+
+    function hasPathSum(root, targetSum) {
+        if (root === null) {
+            return false;
+        }
+
+        // Leaf node
+        if (root.left === null && root.right === null) {
+            return root.val === targetSum;
+        }
+
+        const remaining = targetSum - root.val;
+
+        return (
+            hasPathSum(root.left, remaining) ||
+            hasPathSum(root.right, remaining)
+        );
+    }
+
+- - Maintain an answer while traversing
+
+    function maxValue(root) {
+        let answer = -Infinity;
+
+        function dfs(node) {
+            if (node === null) {
+                return;
+            }
+
+            answer = Math.max(answer, node.val);
+
+            dfs(node.left);
+            dfs(node.right);
+        }
+
+        dfs(root);
+
+        return answer;
+    }
+
+- - Carry state along the path
+
+    function maxPathSum(root) {
+        let answer = -Infinity;
+
+        function dfs(node, currentSum) {
+            if (node === null) {
+                return;
+            }
+
+            currentSum += node.val;
+
+            // Leaf
+            if (node.left === null && node.right === null) {
+                answer = Math.max(answer, currentSum);
+                return;
+            }
+
+            dfs(node.left, currentSum);
+            dfs(node.right, currentSum);
+        }
+
+        dfs(root, 0);
+
+        return answer;
+    }
+
+- - #BST
+
+- Validate a bst
+
+    function isValidBST(root) {
+        function dfs(node, min, max) {
+            if (node === null) {
+                return true;
+            }
+
+            if (node.val <= min || node.val >= max) {
+                return false;
+            }
+
+            return (
+                dfs(node.left, min, node.val) &&
+                dfs(node.right, node.val, max)
+            );
+        }
+
+        return dfs(root, -Infinity, Infinity);
+    }
+
+- Search
+
+    function searchBST(root, target) {
+        if (root === null) {
+            return null;
+        }
+
+        if (root.val === target) {
+            return root;
+        }
+
+        if (target < root.val) {
+            return searchBST(root.left, target);
+        }
+
+        return searchBST(root.right, target);
+    }
+
+- Insert
+
+    function insert(root, val) {
+        if (root === null) {
+            return new TreeNode(val);
+        }
+
+        if (val < root.val) {
+            root.left = insert(root.left, val);
+        } else {
+            root.right = insert(root.right, val);
+        }
+
+        return root;
+    }
+
+- Delete
+
+    function deleteNode(root, key) {
+        if (root === null) {
+            return null;
+        }
+
+        if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        } else if (key > root.val) {                                // if has no children then simply remove
+            root.right = deleteNode(root.right, key);
+        } else {
+            
+            if (root.left === null) {                               // if has one child, then replace
+                return root.right;
+            }
+
+            if (root.right === null) {
+                return root.left;
+            }
+
+            
+            let successor = root.right;                             // if has two children, find replacement(commonly smallest value in right subtree)
+
+            while (successor.left !== null) {
+                successor = successor.left;
+            }
+
+            root.val = successor.val;
+
+            root.right = deleteNode(root.right, successor.val);
+        }
+
+        return root;
+    }
+
+- Complexities
+
+For balanced BST
+
+Search   O(log n)
+Insert   O(log n)
+Delete   O(log n)
+
+For non-balanced(eg 1->2->3->4   )
+
+Search = O(n)
+Insert = O(n)
+Delete = O(n)
