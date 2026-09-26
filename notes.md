@@ -755,6 +755,31 @@ Traversal - TC = O(n) & SC = O(w);      w = width
         return 1 + Math.max(left, right);
     }
 
+    how the call stack works: it dives deep into the left side first(depends on sequence of function calls; in above code left is called first), pauses, handles the base cases, pops back up to check the right side of that subtree, finishes the node, and then finally moves to the root's right side. That is the exact definition of a Depth-First Search (DFS).
+
+    About 1 + Math.max(left, right) - Math.max(0,0) only happens at the bottom: The 0 values only come into play when a node points to null (i.e., it has no children). Higher nodes use the results of their children: As the recursion climbs back up, the left and right variables hold the actual depths returned by the subtrees below them, not 0. for eg. [1,2,3,4,5] 2 receives 1 from its leaf node 4(1 + (0,0)) and thus node 2 = (1 + (1,0)) and root receives 1+2 = 3 from left subtree.
+
+    - Do I Need a Helper?
+    Ask yourself these two quick questions when looking at a new problem:
+
+    Does the main function give me enough parameters?
+
+    If it only gives you root, but you need to compare two things (like in Symmetric Tree) or track extra state (like a path sum or min/max), you usually need a helper function that takes extra arguments.
+
+    Does the final output type match what recursion needs to calculate?
+
+    If the problem wants a boolean at the very end, but your recursive steps need to crunch numbers (like heights, depths, or sums), you use a helper function to do the heavy math and let the main function wrap up the final boolean answer.
+
+3 Steps for recursive tree problems - 
+(1)base case, 
+(2)decide the direction - Do I need to carry state down the tree, or collect answers from the bottom up?
+
+    Carrying down (like Path Sum): You need an extra parameter in your helper function (like currSum). You update it right at the start of the function: currSum += node.val;
+
+    Pulling up (like Same Tree / Max Depth): You don't need extra parameters. You just immediately dive into the children.
+
+(3)What do I need from my left child and right child, and how do I glue their answers together?Do both need to be true? -> Use && (like Same Tree); Can either be true? -> Use || (like Path Sum); Do I need to find the max of both? -> Use Math.max()
+
 - - Pass information downward / Top-down recursion
 
     function hasPathSum(root, targetSum) {
