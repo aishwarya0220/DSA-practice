@@ -703,6 +703,7 @@ This creates -
 
 Traversal - TC = O(n) & SC = O(h);      h = height
 
+SC = O(log n) for balanced tree, O(n) for skewed tree
 
 - BFS --
 
@@ -779,6 +780,16 @@ Traversal - TC = O(n) & SC = O(w);      w = width
     Pulling up (like Same Tree / Max Depth): You don't need extra parameters. You just immediately dive into the children.
 
 (3)What do I need from my left child and right child, and how do I glue their answers together?Do both need to be true? -> Use && (like Same Tree); Can either be true? -> Use || (like Path Sum); Do I need to find the max of both? -> Use Math.max()
+
+- When you get stuck, don't ask "What's the solution?"
+
+    Ask:
+
+    "What should dfs(node) return to its parent?"
+
+    eg. path sum -> dfs(node) → whether required sum exists below node?
+        lca -> dfs(node) → whether target/LCA node found in subtree
+
 
 - - Pass information downward / Top-down recursion
 
