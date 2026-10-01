@@ -965,3 +965,33 @@ For non-balanced(eg 1->2->3->4   )
 Search = O(n)
 Insert = O(n)
 Delete = O(n)
+
+- N-ary tree - binary tree has at most 2 children, while an N-ary tree can have any number of children.
+
+you cant do dfs(node.children); // ❌ bcoz node.children is an array of nodes
+
+instead we do 
+
+for (const child of node.children) {
+    dfs(child);
+}
+
+thus for DFS -- 
+
+function dfs(node) {
+    if (!node) return;
+
+    for (const child of node.children) {
+        dfs(child);
+    }
+}
+
+for BFS -- 
+
+while (queue.length > 0) {
+    const node = queue.shift();
+
+    for (const child of node.children) {
+        queue.push(child);
+    }
+}
