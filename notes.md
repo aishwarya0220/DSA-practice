@@ -995,3 +995,257 @@ while (queue.length > 0) {
         queue.push(child);
     }
 }
+
+
+
+# Heaps
+
+- tree like ds that helps efficiently access smallest(min-heap) or largest(max-heap) element
+
+- Min Heap -- parent(not just root) <= children
+
+        1
+      /   \
+     3     5
+    / \
+   7   4
+
+- Max heap -- parent >= children
+
+        9
+      /   \
+     7     8
+    / \
+   3   4
+
+heap is not fully sorted. only the parent-child relation is guaranteed
+
+- in sorted array, getting minimum is O(1) but insertion costs O(n); for min-heap, 
+
+        Operation	    Complexity
+        peek min/max	O(1)
+        insert	        O(log n)
+        remove min/max	O(log n)
+        build heap	    O(n)
+
+basic formulae -- 
+
+parent = Math.floor((i - 1) / 2);
+left   = 2 * i + 1;
+right  = 2 * i + 2;
+
+- fundamental operations -- 
+
+1) bubble up - conducted immdtly after inserting new element; it works like ->
+
+Place the new element at the last index of the array.
+
+Compare its value with its parent using the formula parent = Math.floor((i - 1) / 2).
+
+If the heap property is violated (e.g., in a Min-Heap, if the child is smaller than its parent), swap them.
+
+Update index i to the parent's index and repeat the process until the heap property is restored or the element reaches the root (i = 0)
+
+2) bubble down - conducted after extractg/removing root element; to fill the removed position, we place the last element of array to root's position then check for the validity of heap by starting the operation from root as follows -- 
+
+Start at the root index (i = 0).
+
+Find its children using left = 2 * i + 1 and right = 2 * i + 2.
+
+Compare the current node with its children. In a Min-Heap, find the smaller of the two children.
+
+If the current node violates the heap property (i.e., it is larger than that smaller child), swap them.
+
+Update index i to the child's index and repeat the loop downward until the node is smaller than both children or becomes a leaf node
+
+
+- Min heap template
+
+        class MinHeap {
+        constructor() {
+            this.heap = [];
+        }
+
+        peek() {
+            return this.heap[0];
+        }
+
+        size() {
+            return this.heap.length;
+        }
+
+        push(value) {
+            this.heap.push(value);
+            this.bubbleUp();
+        }
+
+        pop() {
+            if (this.heap.length === 0) return undefined;
+            if (this.heap.length === 1) return this.heap.pop();
+
+            const root = this.heap[0];                              // saves the root
+
+            this.heap[0] = this.heap.pop();                         // overwriting 0th index by popped value
+            this.bubbleDown();
+
+            return root;                                            // returns 0th element which was earlier saved
+        }
+
+        bubbleUp() {
+            let i = this.heap.length - 1;
+
+            while (i > 0) {
+            const parent = Math.floor((i - 1) / 2);
+
+            if (this.heap[parent] <= this.heap[i]) break;
+
+            [this.heap[parent], this.heap[i]] =
+                [this.heap[i], this.heap[parent]];
+
+            i = parent;
+            }
+        }
+
+        bubbleDown() {
+            let i = 0;
+            const n = this.heap.length;
+
+            while (true) {                                                  // cr8s an infinite loop which has to be stopped by adding a return or break
+            let smallest = i;                                               // line in the loop
+
+            const left = 2 * i + 1;
+            const right = 2 * i + 2;
+
+            if (left < n && this.heap[left] < this.heap[smallest]) {
+                smallest = left;
+            }
+
+            if (right < n && this.heap[right] < this.heap[smallest]) {
+                smallest = right;
+            }
+
+            if (smallest === i) break;
+
+            [this.heap[i], this.heap[smallest]] =
+                [this.heap[smallest], this.heap[i]];
+
+            i = smallest;
+            }
+        }
+        }
+
+- Heap with custom comparator
+
+class Heap {
+  constructor(compare) {
+    this.heap = [];
+    this.compare = compare;
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  peek() {
+    return this.heap[0];
+  }
+
+  push(x) {
+    this.heap.push(x);
+
+    let i = this.heap.length - 1;
+
+    while (i > 0) {
+      const p = Math.floor((i - 1) / 2);
+
+      if (this.compare(this.heap[p], this.heap[i]) <= 0) break;
+
+      [this.heap[p], this.heap[i]] =
+        [this.heap[i], this.heap[p]];
+
+      i = p;
+    }
+  }
+
+  pop() {
+    if (!this.heap.length) return undefined;
+    if (this.heap.length === 1) return this.heap.pop();
+
+    const result = this.heap[0];
+
+    this.heap[0] = this.heap.pop();
+
+    let i = 0;
+
+    while (true) {
+      let best = i;
+      const left = 2 * i + 1;
+      const right = 2 * i + 2;
+
+      if (
+        left < this.heap.length &&
+        this.compare(this.heap[left], this.heap[best]) < 0
+      ) {
+        best = left;
+      }
+
+      if (
+        right < this.heap.length &&
+        this.compare(this.heap[right], this.heap[best]) < 0
+      ) {
+        best = right;
+      }
+
+      if (best === i) break;
+
+      [this.heap[i], this.heap[best]] =
+        [this.heap[best], this.heap[i]];
+
+      i = best;
+    }
+
+    return result;
+  }
+}
+
+JavaScript's Array.prototype.sort((a, b) => a - b), the comparison function works like this:
+
+If the result is negative, it means a should come before b.
+
+If the result is positive, it means b should come before a.
+
+In our Heap class, we use the compare function to decide when we need to swap elements.
+
+Now we can simply -- 
+
+const minHeap = new Heap((a, b) => a - b);
+
+const maxHeap = new Heap((a, b) => b - a);
+
+const pq = new Heap((a, b) => a.priority - b.priority);
+
+const heap = new Heap((a, b) => a.distance - b.distance);
+
+    heap.push({ node: "A", distance: 10 });
+    heap.push({ node: "B", distance: 3 });
+    heap.push({ node: "C", distance: 7 });
+
+    console.log(heap.pop());
+    // { node: "B", distance: 3 }
+
+
+- Top K elements
+
+        const heap = new MinHeap();                                         // the minHeap class works in the background; thus push and pop also
+                                                                            // implement bubble up and down operations
+        for (const num of nums) {
+        heap.push(num);
+
+        if (heap.size() > k) {
+            heap.pop();
+        }
+        }
+
+        console.log(heap.heap); // k largest elements
+
+
