@@ -1248,4 +1248,49 @@ const heap = new Heap((a, b) => a.distance - b.distance);
 
         console.log(heap.heap); // k largest elements
 
+- - Quickselect algo (solves top k type Qs in O(n) and O(1) rather than O(n log k) and O(k))
 
+function quickSelect(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+
+    while (left <= right) {
+        const pivotIndex = partition(nums, left, right);
+
+        if (pivotIndex === target) {
+            return nums[pivotIndex];
+        }
+
+        if (pivotIndex > target) {
+            right = pivotIndex - 1;
+        } else {
+            left = pivotIndex + 1;
+        }
+    }
+}
+
+function partition(nums, left, right) {
+    const pivot = nums[right];                                      // another approach will includes using math.random is used for
+    let i = left;                                                   // avoiding O(n^2) in worst cases(wherein work done reduces in 
+                                                                    // manner of n, n-1, n-2 instead of n, n/2, n/4...)
+    for (let j = left; j < right; j++) {                            // randomization doesnt eliminate O(n^2) but makes it unlikely
+        if (nums[j] <= pivot) {
+            [nums[i], nums[j]] = [nums[j], nums[i]];                // this is lomuto partitioning; easy but struggles with duplicates(tle); better to
+            i++;                                                    // use dutch flag
+        }
+    }
+
+    [nums[i], nums[right]] = [nums[right], nums[i]];
+
+    return i;
+}
+
+// kth smallest
+function kthSmallest(nums, k) {
+    return quickSelect(nums, k - 1);
+}
+
+// kth largest
+function kthLargest(nums, k) {
+    return quickSelect(nums, nums.length - k);
+}
