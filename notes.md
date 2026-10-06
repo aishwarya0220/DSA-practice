@@ -147,7 +147,7 @@ How do you develop the intuition for recursive parameters?
 
 
 
-5) Hash Map
+5) Hashmap
 
 map.set(key, value) → Adds/updates a key-value pair.
 map.set("a", 10)
@@ -171,6 +171,7 @@ map.keys() → Gives all keys.
 map.values() → Gives all values.
 map.entries() → Gives all [key, value] pairs.
 
+- In a js object, an array is not a good object key bcoz js converts the array[3,4] into a string['3,4']
 
 5) Binary Search
 
