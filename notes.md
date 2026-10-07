@@ -356,7 +356,7 @@ left            right
 left = left.next;
 right = right.prev;
 
-`LRU Cache skeleton                                     // teaches huge amt of dll operations. Design problems are a mix of DS + OOPS
+`LRU Cache skeleton                                     // teaches lot of dll operations
 
 class Node {
     constructor(key, value) {
