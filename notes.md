@@ -1295,3 +1295,222 @@ function kthSmallest(nums, k) {
 function kthLargest(nums, k) {
     return quickSelect(nums, nums.length - k);
 }
+
+
+# Trie
+
+- tree like ds used to store and search strings; useful for prefix-related operations like autocomplete, dictionary, search suggestions, etc
+
+class TrieNode {
+    constructor() {
+        this.children = new Map();                      // can use array if characters are lowercase(new Array(26).fill(null)); map is convenient when
+        this.isEnd = false;                             // char set isnt fixed and is cleaner and helps in O(1) lookups
+    }
+}
+
+- basic template:
+
+class TrieNode {
+    constructor() {
+        this.children = new Map();
+        this.isEnd = false;
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word) {
+        let curr = this.root;
+
+        for (const ch of word) {
+            if (!curr.children.has(ch)) {
+                curr.children.set(ch, new TrieNode());
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        curr.isEnd = true;
+    }
+
+    search(word) {
+        let curr = this.root;
+
+        for (const ch of word) {
+            if (!curr.children.has(ch)) {
+                return false;
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        return curr.isEnd;                              // if isEnd = false then even though the char exist. it doesnt exist as a word in the trie
+    }
+
+    startsWith(prefix) {
+        let curr = this.root;
+
+        for (const ch of prefix) {
+            if (!curr.children.has(ch)) {
+                return false;
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        return true;
+    }
+
+    delete(word) {
+        if (!this.search(word)) {
+            return false;
+        }
+
+        let curr = this.root;
+
+        for (const ch of word) {
+            curr = curr.children.get(ch);
+        }
+
+        curr.isEnd = false;                     // node aint physically removed. isEnd = false means the word is no longer registered
+
+        return true;
+    }
+}
+
+- Prefix count:
+
+can store a counter at each node as per reqmts
+
+class TrieNode {
+    constructor() {
+        this.children = new Map();
+        this.prefixCount = 0;
+        this.wordCount = 0;
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word) {
+        let curr = this.root;
+
+        for (const ch of word) {
+            if (!curr.children.has(ch)) {
+                curr.children.set(ch, new TrieNode());
+            }
+
+            curr = curr.children.get(ch);
+            curr.prefixCount++;
+        }
+
+        curr.wordCount++;
+    }
+
+    countWordsStartingWith(prefix) {
+        let curr = this.root;
+
+        for (const ch of prefix) {
+            if (!curr.children.has(ch)) {
+                return 0;
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        return curr.prefixCount;
+    }
+
+    countExactWord(word) {
+        let curr = this.root;
+
+        for (const ch of word) {
+            if (!curr.children.has(ch)) {
+                return 0;
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        return curr.wordCount;
+    }
+}
+
+- Trie + DFS + backtracking
+
+class TrieNode {
+    constructor() {
+        this.children = new Map();
+        this.word = null;
+    }
+}
+
+function findWords(board, words) {
+    const root = new TrieNode();
+
+    // Build trie
+    for (const word of words) {
+        let curr = root;
+
+        for (const ch of word) {
+            if (!curr.children.has(ch)) {
+                curr.children.set(ch, new TrieNode());
+            }
+
+            curr = curr.children.get(ch);
+        }
+
+        curr.word = word;
+    }
+
+    const result = [];
+    const rows = board.length;
+    const cols = board[0].length;
+
+    function dfs(r, c, node) {
+        if (
+            r < 0 ||
+            r >= rows ||
+            c < 0 ||
+            c >= cols
+        ) {
+            return;
+        }
+
+        const ch = board[r][c];                     // undo                     this is the backtracking part
+
+        if (!node.children.has(ch)) {               // pruning
+            return;
+        }
+
+        const next = node.children.get(ch);         // explore
+
+        if (next.word !== null) {
+            result.push(next.word);
+            next.word = null;
+        }
+
+        board[r][c] = '#';                          // mark
+
+        dfs(r + 1, c, next);
+        dfs(r - 1, c, next);
+        dfs(r, c + 1, next);
+        dfs(r, c - 1, next);
+
+        board[r][c] = ch;
+    }
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            dfs(r, c, root);
+        }
+    }
+
+    return result;
+}
