@@ -1514,3 +1514,222 @@ function findWords(board, words) {
 
     return result;
 }
+
+# Graphs
+
+- graphs look like trees when you first see them, but the code must account for something trees usually don't have: a node can be reached through multiple paths, and cycles can bring you back to a node you've already seen
+
+    grid = [                            // referred as adjacency matrix; 1 represents an edge exists b/w them
+    [1, 1, 0],                          // ez but consumes v^2 space thus adjacency list is preferred
+    [1, 0, 0],
+    [0, 0, 1]
+    ]
+
+- DFS
+
+function dfs(node, graph, visited) {    // node based graph
+    // Already visited?
+    if (visited.has(node)) {            // to avoid infinite loop in a cyclical graph
+        return;                         // backtracks
+    }
+
+    // Mark current node as visited
+    visited.add(node);
+
+    // Do something with node
+    console.log(node);
+
+    // Visit neighbors
+    for (const neighbor of graph[node]) {
+        dfs(neighbor, graph, visited);
+    }
+}
+
+function dfs(grid, row, col, visited) { // DFS on 2d grid
+    const rows = grid.length;
+    const cols = grid[0].length;
+
+    // 1. Check boundaries
+    if (
+        row < 0 ||
+        col < 0 ||
+        row >= rows ||
+        col >= cols
+    ) {
+        return;
+    }
+
+    // 2. Check if already visited
+    if (visited[row][col]) {
+        return;
+    }
+
+    // 3. Check if the cell is not traversable
+    if (grid[row][col] === 0) {
+        return;
+    }
+
+    // 4. Mark visited
+    visited[row][col] = true;
+
+    // 5. Explore all four neighbors
+    const directions = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+    ];
+
+    for (const [dr, dc] of directions) {
+        dfs(grid, row + dr, col + dc, visited);
+    }
+}
+
+- BFS                                   // commonly used for shortest path in unweighted graphs
+
+function bfs(start, graph) {
+    const queue = [start];
+    const visited = new Set([start]);
+
+    let head = 0;
+
+    while (head < queue.length) {
+        const node = queue[head++];
+
+        // Process node
+        console.log(node);
+
+        for (const neighbor of graph[node]) {
+            if (visited.has(neighbor)) {
+                continue;
+            }
+
+            visited.add(neighbor);
+            queue.push(neighbor);
+        }
+    }
+}
+
+function bfs(grid, startRow, startCol) {
+    const rows = grid.length;
+    const cols = grid[0].length;
+
+    const directions = [
+        [-1, 0],
+        [1, 0],
+        [0, -1],
+        [0, 1]
+    ];
+
+    const visited = Array.from(
+        { length: rows },
+        () => Array(cols).fill(false)
+    );
+
+    const queue = [[startRow, startCol]];
+    let head = 0;
+
+    visited[startRow][startCol] = true;
+
+    while (head < queue.length) {
+        const [row, col] = queue[head++];
+
+        // Process the current cell here.
+
+        for (const [dr, dc] of directions) {
+            const nr = row + dr;
+            const nc = col + dc;
+
+            // 1. Check boundaries
+            if (
+                nr < 0 ||
+                nc < 0 ||
+                nr >= rows ||
+                nc >= cols
+            ) {
+                continue;
+            }
+
+            // 2. Check visited
+            if (visited[nr][nc]) {
+                continue;
+            }
+
+            // 3. Check traversability
+            if (grid[nr][nc] === 0) {
+                continue;
+            }
+
+            // 4. Mark and enqueue
+            visited[nr][nc] = true;
+            queue.push([nr, nc]);
+        }
+    }
+}
+
+- shortest path
+
+function shortestPath(start, graph) {
+    const queue = [start];
+    const visited = new Set([start]);
+
+    let head = 0;
+    let distance = 0;
+
+    while (head < queue.length) {
+        const levelSize = queue.length - head;
+
+        for (let i = 0; i < levelSize; i++) {
+            const node = queue[head++];
+
+            if (node === target) {
+                return distance;
+            }
+
+            for (const neighbor of graph[node]) {
+                if (visited.has(neighbor)) {
+                    continue;
+                }
+
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
+        }
+
+        distance++;
+    }
+
+    return -1;
+}
+
+- count components
+
+function countComponents(graph) {
+    const visited = new Set();
+    let count = 0;
+
+    for (let node = 0; node < graph.length; node++) {
+        if (visited.has(node)) {
+            continue;
+        }
+
+        count++;
+
+        dfs(node, graph, visited);
+    }
+
+    return count;
+}
+
+function dfs(node, graph, visited) {
+    visited.add(node);
+
+    for (const neighbor of graph[node]) {
+        if (!visited.has(neighbor)) {
+            dfs(neighbor, graph, visited);
+        }
+    }
+}
+
+Both usually take O(V+E) time and O(V) auxiliary space for an adjacency-list graph
+
