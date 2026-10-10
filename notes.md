@@ -1702,6 +1702,62 @@ function shortestPath(start, graph) {
     return -1;
 }
 
+- multisource bfs(start processing from multiple starting nodes instead of just one)
+
+function multiSourceBFS(grid) {
+    const m = grid.length;
+    const n = grid[0].length;
+
+    const dist = Array.from(
+        { length: m },
+        () => Array(n).fill(-1)
+    );
+
+    const queue = [];
+
+    // 1. Add all source cells
+    for (let r = 0; r < m; r++) {
+        for (let c = 0; c < n; c++) {
+            if (/* is a source */) {
+                dist[r][c] = 0;
+                queue.push([r, c]);
+            }
+        }
+    }
+
+    const directions = [
+        [-1, 0], [1, 0],
+        [0, -1], [0, 1]
+    ];
+
+    // 2. BFS
+    let head = 0;
+
+    while (head < queue.length) {
+        const [r, c] = queue[head++];
+
+        for (const [dr, dc] of directions) {
+            const nr = r + dr;
+            const nc = c + dc;
+
+            // 3. Bounds check
+            if (
+                nr < 0 || nr >= m ||
+                nc < 0 || nc >= n
+            ) continue;
+
+            // 4. Skip visited cells
+            if (dist[nr][nc] !== -1) continue;
+
+            // 5. Update and enqueue
+            dist[nr][nc] = dist[r][c] + 1;
+            queue.push([nr, nc]);
+        }
+    }
+
+    return dist;
+}
+
 - count components
 
 function countComponents(graph) {
