@@ -1789,3 +1789,53 @@ function dfs(node, graph, visited) {
 
 Both usually take O(V+E) time and O(V) auxiliary space for an adjacency-list graph
 
+
+- bidirectional search - search simultaneously from the source and the destination until the two searches meet
+
+function bidirectionalBFS(graph, src, dest) {
+    if (src === dest) return 0;
+
+    let front = new Set([src]);
+    let back = new Set([dest]);
+
+    let visitedFront = new Set([src]);
+    let visitedBack = new Set([dest]);
+
+    let distFront = new Map([[src, 0]]);
+    let distBack = new Map([[dest, 0]]);
+
+    while (front.size > 0 && back.size > 0) {
+        // Always expand the smaller frontier
+        if (front.size > back.size) {
+            [front, back] = [back, front];
+            [visitedFront, visitedBack] =
+                [visitedBack, visitedFront];
+            [distFront, distBack] = [distBack, distFront];
+        }
+
+        const nextFront = new Set();
+
+        for (const node of front) {
+            for (const nei of graph[node] ?? []) {
+                // The two searches have met
+                if (visitedBack.has(nei)) {
+                    return distFront.get(node) + 1
+                         + distBack.get(nei);
+                }
+
+                if (!visitedFront.has(nei)) {
+                    visitedFront.add(nei);
+                    distFront.set(
+                        nei,
+                        distFront.get(node) + 1
+                    );
+                    nextFront.add(nei);
+                }
+            }
+        }
+
+        front = nextFront;
+    }
+
+    return -1; // No path exists
+}
