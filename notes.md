@@ -1839,3 +1839,44 @@ function bidirectionalBFS(graph, src, dest) {
 
     return -1; // No path exists
 }
+
+- Topological sort(Kahn's algorithm)
+
+function topologicalSort(n, edges) {
+  const graph = Array.from({ length: n }, () => []);
+  const indegree = Array(n).fill(0);
+
+  // edges = [[u, v], ...], meaning u -> v
+  for (const [u, v] of edges) {
+    graph[u].push(v);
+    indegree[v]++;                                  // counts no of incoming edges to v
+  }
+
+  const queue = [];
+
+  for (let i = 0; i < n; i++) {
+    if (indegree[i] === 0) queue.push(i);           // vertices with indegree zero have no remaining prerequisites
+  }
+
+  const order = [];
+  let head = 0;
+
+  while (head < queue.length) {
+    const u = queue[head++];                        // remove one node from queue and process its outgoing edges
+    order.push(u);
+
+    for (const v of graph[u]) {
+      indegree[v]--;                                // each processed edge decreases its destination's indegree
+
+      if (indegree[v] === 0) {
+        queue.push(v);
+      }
+    }
+  }
+
+  // A cycle exists if some vertices remain.
+  if (order.length !== n) return [];
+
+  return order;                                     // tc = O(V+E) ; sc = O(V+E)
+}
+
