@@ -1527,10 +1527,10 @@ function findWords(board, words) {
 
 - DFS
 
-function dfs(node, graph, visited) {    // node based graph
+function dfs(node, graph, visited) {            // adjacency node
     // Already visited?
-    if (visited.has(node)) {            // to avoid infinite loop in a cyclical graph
-        return;                         // backtracks
+    if (visited.has(node)) {                    // to avoid infinite loop in a cyclical graph
+        return;                                 // backtracks
     }
 
     // Mark current node as visited
@@ -1545,7 +1545,35 @@ function dfs(node, graph, visited) {    // node based graph
     }
 }
 
-function dfs(grid, row, col, visited) { // DFS on 2d grid
+function dfs(node, adj, visited) {              // adjacency list
+    visited[node] = true;
+
+    console.log(node); // Process the current node
+
+    for (let neighbor of adj[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, adj, visited);
+        }
+    }
+}
+
+const edges = [[1, 2], [1, 3], [2, 3]];
+
+// Build adjacency list                         // from i/p of an array of edges
+const adj = {};
+
+for (let [u, v] of edges) {
+    if (!adj[u]) adj[u] = [];
+    if (!adj[v]) adj[v] = [];
+
+    adj[u].push(v);
+    adj[v].push(u); // Undirected graph
+}
+
+const visited = {};
+dfs(1, adj, visited);
+
+function dfs(grid, row, col, visited) {         // DFS on 2d grid
     const rows = grid.length;
     const cols = grid[0].length;
 
@@ -1585,10 +1613,28 @@ function dfs(grid, row, col, visited) { // DFS on 2d grid
     }
 }
 
+function dfs(graph, start, visited, result) {           // adjacency matrix
+    visited[start] = true;
+    result.push(start);
+
+    for (let neighbor = 0; neighbor < graph.length; neighbor++) {
+        if (graph[start][neighbor] === 1 &&
+            !visited[neighbor]) {
+            dfs(graph, neighbor, visited, result);
+        }
+    }
+}
+
+const visited = Array(graph.length).fill(false);
+const result = [];
+
+dfs(graph, 0, visited, result);
+
+
 - BFS                                   // commonly used for shortest path in unweighted graphs
 
-function bfs(start, graph) {
-    const queue = [start];
+function bfs(start, graph) {                // adjacency node
+    const queue = [start];                          
     const visited = new Set([start]);
 
     let head = 0;
@@ -1610,8 +1656,36 @@ function bfs(start, graph) {
     }
 }
 
+function bfs(graph, start) {                    // adjacency matrix
+    const n = graph.length;
+    const visited = Array(n).fill(false);
+    const queue = [];
+    const result = [];
+    let head = 0;
+
+    queue.push(start);
+    visited[start] = true;
+
+    while (head < queue.length) {
+        const node = queue[head++];
+
+        result.push(node);
+
+        for (let neighbor = 0; neighbor < n; neighbor++) {
+            if (graph[node][neighbor] === 1 &&
+                !visited[neighbor]) {
+
+                visited[neighbor] = true;
+                queue.push(neighbor);
+            }
+        }
+    }
+
+    return result;
+}
+
 function bfs(grid, startRow, startCol) {
-    const rows = grid.length;
+    const rows = grid.length;                   // 2d grids
     const cols = grid[0].length;
 
     const directions = [
