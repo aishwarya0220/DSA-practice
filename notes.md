@@ -1916,41 +1916,75 @@ function bidirectionalBFS(graph, src, dest) {
 
 - Topological sort(Kahn's algorithm)
 
-function topologicalSort(n, edges) {
-  const graph = Array.from({ length: n }, () => []);
-  const indegree = Array(n).fill(0);
+    function topologicalSort(n, edges) {
+    const graph = Array.from({ length: n }, () => []);
+    const indegree = Array(n).fill(0);
 
-  // edges = [[u, v], ...], meaning u -> v
-  for (const [u, v] of edges) {
-    graph[u].push(v);
-    indegree[v]++;                                  // counts no of incoming edges to v
-  }
-
-  const queue = [];
-
-  for (let i = 0; i < n; i++) {
-    if (indegree[i] === 0) queue.push(i);           // vertices with indegree zero have no remaining prerequisites
-  }
-
-  const order = [];
-  let head = 0;
-
-  while (head < queue.length) {
-    const u = queue[head++];                        // remove one node from queue and process its outgoing edges
-    order.push(u);
-
-    for (const v of graph[u]) {
-      indegree[v]--;                                // each processed edge decreases its destination's indegree
-
-      if (indegree[v] === 0) {
-        queue.push(v);
-      }
+    // edges = [[u, v], ...], meaning u -> v
+    for (const [u, v] of edges) {
+        graph[u].push(v);
+        indegree[v]++;                                  // counts no of incoming edges to v
     }
-  }
 
-  // A cycle exists if some vertices remain.
-  if (order.length !== n) return [];
+    const queue = [];
 
-  return order;                                     // tc = O(V+E) ; sc = O(V+E)
-}
+    for (let i = 0; i < n; i++) {
+        if (indegree[i] === 0) queue.push(i);           // vertices with indegree zero have no remaining prerequisites
+    }
 
+    const order = [];
+    let head = 0;
+
+    while (head < queue.length) {
+        const u = queue[head++];                        // remove one node from queue and process its outgoing edges
+        order.push(u);
+
+        for (const v of graph[u]) {
+        indegree[v]--;                                // each processed edge decreases its destination's indegree
+
+        if (indegree[v] === 0) {
+            queue.push(v);
+        }
+        }
+    }
+
+    // A cycle exists if some vertices remain.
+    if (order.length !== n) return [];
+
+    return order;                                     // tc = O(V+E) ; sc = O(V+E)
+    }
+
+- DSU
+
+    let n = accounts.length
+
+    let parent = Array.from(
+        { length: n},
+        (_,i) => i
+    )
+
+    let size = Array(n).fill(1)
+
+    function find(x){
+        if(parent[x] !== x){
+            parent[x] = find(parent[x])
+        }
+        return parent[x]
+    }
+
+    function union(x,y){
+        let rootX = find(x)
+        let rootY = find(y)
+
+        if(rootX === rootY) return false
+
+        if(size[rootX] < size[rootY]){
+            [rootX, rootY] = [rootY, rootX]
+        }
+
+        parent[rootY] = rootX
+
+        size[rootX] += size[rootY]
+
+        return true
+    }
