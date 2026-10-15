@@ -1866,53 +1866,50 @@ Both usually take O(V+E) time and O(V) auxiliary space for an adjacency-list gra
 
 - bidirectional search - search simultaneously from the source and the destination until the two searches meet
 
-function bidirectionalBFS(graph, src, dest) {
-    if (src === dest) return 0;
+function bidirectionalBFS(graph, start, target) {           // this template is used to get shortest distance rather than the actual path
+    // Same start and target: zero edges needed             // while this pattern is more repetitive, path pattern is required for xtrm hard problems
+    if (start === target) return 0;                         // like word ladder-II which requires a diff template
 
-    let front = new Set([src]);
-    let back = new Set([dest]);
+    // Frontiers: nodes at the current BFS layer
+    let frontA = new Set([start]);
+    let frontB = new Set([target]);
 
-    let visitedFront = new Set([src]);
-    let visitedBack = new Set([dest]);
+    // Distance from each search's own starting node
+    let distA = new Map([[start, 0]]);
+    let distB = new Map([[target, 0]]);
 
-    let distFront = new Map([[src, 0]]);
-    let distBack = new Map([[dest, 0]]);
-
-    while (front.size > 0 && back.size > 0) {
+    while (frontA.size > 0 && frontB.size > 0) {
         // Always expand the smaller frontier
-        if (front.size > back.size) {
-            [front, back] = [back, front];
-            [visitedFront, visitedBack] =
-                [visitedBack, visitedFront];
-            [distFront, distBack] = [distBack, distFront];
+        if (frontA.size > frontB.size) {
+            [frontA, frontB] = [frontB, frontA];
+            [distA, distB] = [distB, distA];
         }
 
-        const nextFront = new Set();
+        const nextFront = new Set();        // holds the next bfs layer for side we're currently expanding
 
-        for (const node of front) {
-            for (const nei of graph[node] ?? []) {
-                // The two searches have met
-                if (visitedBack.has(nei)) {
-                    return distFront.get(node) + 1
-                         + distBack.get(nei);
+        // Expand one complete BFS layer
+        for (const node of frontA) {
+            for (const neighbor of graph.get(node) ?? []) {
+                // The searches have connected
+                if (distB.has(neighbor)) {
+                    return distA.get(node) + 1 + distB.get(neighbor);
                 }
 
-                if (!visitedFront.has(nei)) {
-                    visitedFront.add(nei);
-                    distFront.set(
-                        nei,
-                        distFront.get(node) + 1
-                    );
-                    nextFront.add(nei);
+                // Don't revisit nodes on this side
+                if (!distA.has(neighbor)) {
+                    distA.set(neighbor, distA.get(node) + 1);
+                    nextFront.add(neighbor);
                 }
             }
         }
 
-        front = nextFront;
+        // Move to the next layer
+        frontA = nextFront;
     }
 
     return -1; // No path exists
 }
+
 
 - Topological sort(Kahn's algorithm)
 
