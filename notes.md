@@ -1985,3 +1985,318 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
 
         return true
     }
+
+- Dijkstra
+
+    function dijkstra(graph, source) {
+        const n = graph.length;
+        const dist = Array(n).fill(Infinity);
+
+        const heap = new MinHeap();
+
+        dist[source] = 0;
+        heap.push([0, source]); // [distance, node]
+
+        while (!heap.isEmpty()) {
+            const [distance, node] = heap.pop();
+
+            // Ignore outdated entries.
+            if (distance > dist[node]) continue;
+
+            for (const [neighbor, weight] of graph[node]) {
+                const newDist = distance + weight;
+
+                if (newDist < dist[neighbor]) {
+                    dist[neighbor] = newDist;
+                    heap.push([newDist, neighbor]);
+                }
+            }
+        }
+
+        return dist;
+    }
+
+- bellman ford
+
+    function bellmanFord(n, edges, source) {
+        const dist = Array(n).fill(Infinity);
+        dist[source] = 0;
+
+        // Relax all edges up to n - 1 times.
+        for (let i = 0; i < n - 1; i++) {       // iterates thru each node; works where i/p edge are not in ordered manner
+            let changed = false;
+
+            for (const [u, v, weight] of edges) {
+                // Cannot travel from an unreachable node.
+                if (dist[u] === Infinity) continue;
+
+                const newDist = dist[u] + weight;
+
+                if (newDist < dist[v]) {
+                    dist[v] = newDist;
+                    changed = true;
+                }
+            }
+
+            // No improvement means we're done.
+            if (!changed) break;
+        }
+
+        // Detect a reachable negative-weight cycle.        // its an issue bcoz can keep travellg around cycle forever making path smaller with
+        for (const [u, v, weight] of edges) {               // each iteration. thus theres no finite shortest to the affected nodes
+            if (dist[u] === Infinity) continue;
+
+            if (dist[u] + weight < dist[v]) {
+                return null;
+            }
+        }
+
+        return dist;
+    }
+
+
+- 0-1 BFS
+
+    class Deque {
+        constructor() {
+            this.items = [];
+            this.head = 0;
+            this.tail = 0;
+        }
+
+        isEmpty() {
+            return this.head === this.tail;
+        }
+
+        pushFront(value) {
+            this.items[--this.head] = value;
+        }
+
+        pushBack(value) {
+            this.items[this.tail++] = value;
+        }
+
+        popFront() {
+            if (this.isEmpty()) return undefined;
+
+            const value = this.items[this.head];
+            delete this.items[this.head++];
+            return value;
+        }
+    }
+
+    function zeroOneBFS(graph, source) {
+        const n = graph.length;
+        const dist = Array(n).fill(Infinity);
+        const deque = new Deque();
+
+        dist[source] = 0;
+        deque.pushBack(source);
+
+        while (!deque.isEmpty()) {
+            const node = deque.popFront();
+
+            for (const [neighbor, weight] of graph[node]) {
+                const newDist = dist[node] + weight;
+
+                if (newDist >= dist[neighbor]) continue;
+
+                dist[neighbor] = newDist;
+
+                if (weight === 0) {
+                    deque.pushFront(neighbor);
+                } else {
+                    deque.pushBack(neighbor);
+                }
+            }
+        }
+
+        return dist;
+    }
+
+- MST refers to the subset of edges in a connected,weighted,undirected graph that connects all vertices together w/o any cycles while keeping sum of edges as small as possible; if all edge weights in the graph are unique, the MST is one-of-a-kind; if weights repeat, multiple valid MSTs may exist
+
+- - Prims
+
+
+    class MinHeap {
+        constructor() {
+            this.heap = [];
+        }
+
+        push(item) {
+            const h = this.heap;
+            h.push(item);
+
+            let i = h.length - 1;
+
+            while (i > 0) {
+                const p = Math.floor((i - 1) / 2);
+
+                if (h[p][0] <= h[i][0]) break;
+
+                [h[p], h[i]] = [h[i], h[p]];
+                i = p;
+            }
+        }
+
+        pop() {
+            const h = this.heap;
+            if (h.length === 0) return null;
+
+            const result = h[0];
+            const last = h.pop();
+
+            if (h.length > 0) {
+                h[0] = last;
+                let i = 0;
+
+                while (true) {
+                    let smallest = i;
+                    const left = 2 * i + 1;
+                    const right = 2 * i + 2;
+
+                    if (
+                        left < h.length &&
+                        h[left][0] < h[smallest][0]
+                    ) smallest = left;
+
+                    if (
+                        right < h.length &&
+                        h[right][0] < h[smallest][0]
+                    ) smallest = right;
+
+                    if (smallest === i) break;
+
+                    [h[i], h[smallest]] =
+                        [h[smallest], h[i]];
+
+                    i = smallest;
+                }
+            }
+
+            return result;
+        }
+
+        get size() {
+            return this.heap.length;
+        }
+    }
+
+    function primHeap(graph) {
+        const n = graph.length;
+        if (n === 0) return 0;
+
+        const visited = new Array(n).fill(false);
+        const pq = new MinHeap();
+
+        // [edgeWeight, vertex]
+        pq.push([0, 0]);
+
+        let totalCost = 0;
+        let verticesUsed = 0;
+
+        while (pq.size > 0) {
+            const [weight, u] = pq.pop();
+
+            if (visited[u]) continue;
+
+            visited[u] = true;
+            totalCost += weight;
+            verticesUsed++;
+
+            for (const [v, edgeWeight] of graph[u]) {
+                if (!visited[v]) {
+                    pq.push([edgeWeight, v]);
+                }
+            }
+        }
+
+        // If not every vertex was reached, no spanning tree exists
+        return verticesUsed === n ? totalCost : -1;
+    }
+
+- - Kruskal 
+
+    function kruskal(n, edges) {
+        // Sort edges by ascending weight
+        edges.sort((a, b) => a[2] - b[2]);              // input is an edge list: [u, v, weight]
+
+        const dsu = new DSU(n);                         // unlike prim, kruskal uses dsu
+
+        let totalCost = 0;
+        let edgesUsed = 0;
+
+        for (const [u, v, weight] of edges) {
+            // Only accept edges joining different components
+            if (dsu.union(u, v)) {
+                totalCost += weight;
+                edgesUsed++;
+
+                // A spanning tree has exactly n - 1 edges
+                if (edgesUsed === n - 1) {
+                    return totalCost;
+                }
+            }
+        }
+
+        // Not enough edges were accepted: graph is disconnected
+        return n <= 1 || edgesUsed === n - 1
+            ? totalCost
+            : -1;
+    }
+
+
+- Floyd warshall
+
+    function floydWarshall(n, edges) {
+    // Step 1: Initialize distance matrix
+    const dist = Array.from(
+        { length: n },
+        () => Array(n).fill(Infinity)
+    );
+
+    // Distance from each node to itself is 0
+    for (let i = 0; i < n; i++) {
+        dist[i][i] = 0;
+    }
+
+    // Step 2: Build initial distances from edges
+    for (const [u, v, weight] of edges) {
+        dist[u][v] = Math.min(dist[u][v], weight);
+
+        // For an undirected graph, also add:
+        // dist[v][u] = Math.min(dist[v][u], weight);
+    }
+
+    // Step 3: Floyd-Warshall algorithm
+    for (let k = 0; k < n; k++) {
+        for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (
+            dist[i][k] === Infinity ||
+            dist[k][j] === Infinity
+            ) {
+            continue;
+            }
+
+            dist[i][j] = Math.min(
+            dist[i][j],
+            dist[i][k] + dist[k][j]
+            );
+        }
+        }
+    }
+
+    // Step 4: Return all-pairs shortest distances
+    return dist;
+    }
+
+    // Example: directed graph
+    const n = 4;
+    const edges = [
+    [0, 1, 3],
+    [1, 2, 1],
+    [1, 3, 4],
+    [2, 3, 1]
+    ];
