@@ -2300,3 +2300,52 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
     [1, 3, 4],
     [2, 3, 1]
     ];
+
+
+# DP
+
+- two approaches:
+1) Memoization - top-bottom approach; call the main f(n) which gets recursively broken down into smaller subproblems but we cache the answers of recursive calls and reuse them to make answer efficient from 2^n into polynomial time
+
+    function solve(input) {
+    const memo = new Map();
+
+    function dp(state) {
+        // 1. Base case
+        if (/* base condition */) {
+        return /* base answer */;
+        }
+
+        // 2. Cache lookup
+        if (memo.has(state)) {
+        return memo.get(state);
+        }
+
+        // 3. Recurrence / choices
+        const result = /* combine smaller states */;
+
+        // 4. Cache result
+        memo.set(state, result);
+        return result;
+    }
+
+    return dp(/* initial state */);
+    }
+
+2) tabulation - bottom-up approach; starts from smaller subproblems/base cases and builds its way to the top; no recursion involved rather is based on mathematical formulaes
+
+    function solve(n) {
+    const dp = Array(n + 1).fill(0);
+
+    // Base cases
+    dp[0] = /* answer for state 0 */;
+
+    for (let i = 1; i <= n; i++) {
+        // Recurrence
+        dp[i] = /* use earlier dp states */;
+    }
+
+    return dp[n];
+    }
+
+- Steps to solve DP problems: define state(what is dp[i] supposed to store) -> find the choices/dcsn to make at the current state -> derive recurrence logic -> set base cases; 
