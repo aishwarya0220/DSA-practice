@@ -2349,3 +2349,138 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
     }
 
 - Steps to solve DP problems: define state(what is dp[i] supposed to store) -> find the choices/dcsn to make at the current state -> derive recurrence logic -> set base cases; 
+
+- Grid DP(find paths/ways/min-max_cost)
+
+
+    function gridDP(rows, cols) {
+        // 1. Create the DP table
+        const dp = Array.from(                      // dp[i][j] refers to the number of ways to reach cell (i, j) if we're looking for no of paths
+            { length: rows },
+            () => Array(cols).fill(0)
+        );
+
+        // 2. Base case
+        dp[0][0] = 1;
+
+        // 3. Fill the table
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                if (i === 0 && j === 0) continue;
+
+                const fromTop = i > 0 ? dp[i - 1][j] : 0;
+                const fromLeft = j > 0 ? dp[i][j - 1] : 0;
+
+                dp[i][j] = fromTop + fromLeft;
+            }
+        }
+
+        // 4. Return the destination
+        return dp[rows - 1][cols - 1];
+    }
+
+    console.log(gridDP(3, 3)); // 6
+
+
+- String DP
+
+
+    function solve(s1, s2) {
+        const m = s1.length;
+        const n = s2.length;
+
+        // 1. Create the DP table
+        const dp = Array.from(
+            { length: m + 1 },
+            () => Array(n + 1).fill(0)
+        );
+
+        // 2. Initialize base cases
+        for (let i = 0; i <= m; i++) {
+            dp[i][0] = 0;
+        }
+
+        for (let j = 0; j <= n; j++) {
+            dp[0][j] = 0;
+        }
+
+        // 3. Fill the DP table
+        for (let i = 1; i <= m; i++) {
+            for (let j = 1; j <= n; j++) {
+
+                if (s1[i - 1] === s2[j - 1]) {
+                    // Characters match
+                    dp[i][j] = /* match rule */;
+                } else {
+                    // Characters do not match
+                    dp[i][j] = /* mismatch rule */;
+                }
+            }
+        }
+
+        // 4. Return the answer
+        return dp[m][n];
+    }
+
+- Knapsack
+
+
+
+    function knapsack(weights, values, capacity) {
+        const n = weights.length;
+
+        // dp[i][w] = best value using first i items
+        // with capacity w
+        const dp = Array.from(
+            { length: n + 1 },
+            () => Array(capacity + 1).fill(0)
+        );
+
+        for (let i = 1; i <= n; i++) {
+            const weight = weights[i - 1];
+            const value = values[i - 1];
+
+            for (let w = 0; w <= capacity; w++) {
+                // Choice 1: Skip this item
+                dp[i][w] = dp[i - 1][w];
+
+                // Choice 2: Take this item, if it fits
+                if (weight <= w) {
+                    dp[i][w] = Math.max(
+                        dp[i][w],
+                        value + dp[i - 1][w - weight]
+                    );
+                }
+            }
+        }
+
+        return dp[n][capacity];
+    }
+
+    const weights = [1, 3, 4];
+    const values = [10, 40, 50];
+
+    console.log(knapsack(weights, values, 4)); // 50
+
+- optimized version of above(do this after performg 2d in interviews)
+
+    function knapsack(weights, values, capacity) {
+        const dp = Array(capacity + 1).fill(0);
+
+        for (let i = 0; i < weights.length; i++) {
+            const weight = weights[i];
+            const value = values[i];
+
+            // Move backward for 0/1 Knapsack
+            for (let w = capacity; w >= weight; w--) {
+                dp[w] = Math.max(
+                    dp[w],
+                    value + dp[w - weight]
+                );
+            }
+        }
+
+        return dp[capacity];
+    }
+
+    console.log(knapsack([1, 3, 4], [10, 40, 50], 4)); // 50
