@@ -2425,7 +2425,6 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
 - Knapsack
 
 
-
     function knapsack(weights, values, capacity) {
         const n = weights.length;
 
@@ -2471,7 +2470,7 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
             const weight = weights[i];
             const value = values[i];
 
-            // Move backward for 0/1 Knapsack
+            // Move backward for 0/1 Knapsack where each item cannot be reused; can iterate fwd if reuse permitted
             for (let w = capacity; w >= weight; w--) {
                 dp[w] = Math.max(
                     dp[w],
@@ -2484,3 +2483,49 @@ function bidirectionalBFS(graph, start, target) {           // this template is 
     }
 
     console.log(knapsack([1, 3, 4], [10, 40, 50], 4)); // 50
+
+When to use 0/1? given a collection of items, given a target, each item be used only once
+
+# Bit manipulation
+
+Operator        Name                    What it does 
+&               AND                 Bit is 1 only if both bits are 1 
+\|              OR                  Bit is 1 if either bit is 1 
+^               XOR                 Bit is 1 if the two bits differ 
+~               NOT                 Flips every bit << Left shift Shifts bits to the left 
+>>          Signed right shift      Shifts right, preserving the sign bit 
+>>>         Unsigned right shift    Shifts right, filling with zeros
+
+- bit tricks
+
+    Goal                            Expression                      Explanation 
+Check odd number                n & 1                       Last bit is 1 for odd integers 
+Check even number               (n & 1) === 0               Last bit is 0 for even integers 
+Get bit at position i           (n >>> i) & 1               Isolates the bit 
+Set bit at position i           n \| (1 << i)               Turns the bit on 
+Clear bit at position i         n & ~(1 << i)               Turns the bit off 
+Toggle bit at position i        n ^ (1 << i)                Flips the bit 
+Clear lowest set bit            n & (n - 1)                 Removes the rightmost 1 
+Isolate lowest set bit          n & -n                      Keeps only the rightmost 1 
+Multiply by 2^k                 n << k                      For suitable small integers 
+Divide by 2^k                   n >> k                      Signed integer division, rounded toward negative infinity
+
+- Practice problems:
+
+1) XOR 
+
+https://leetcode.com/problems/single-number/description/
+https://leetcode.com/problems/missing-number/description/
+https://leetcode.com/problems/find-the-difference/description/
+
+2) rightmost set bit masking pattern
+
+https://leetcode.com/problems/number-of-1-bits/description/
+https://leetcode.com/problems/power-of-two/description/
+https://leetcode.com/problems/counting-bits/description/
+
+3) bitmask/bit shifting iteration pattern
+
+https://leetcode.com/problems/reverse-bits/description/
+https://leetcode.com/problems/subsets/description/
+https://leetcode.com/problems/sum-of-two-integers/description/
