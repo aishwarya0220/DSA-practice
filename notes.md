@@ -179,6 +179,70 @@ TC = log base 2 of n represents the power to which the number 2 must be raised t
 
 For overflow cases(range b/w low and high is INT_MAX) - use bigInt. Can use formula = low + (high-low)/2
 
+    function binarySearch(arr, target) {
+        let left = 0;
+        let right = arr.length - 1;
+
+        while (left <= right) {
+            let mid = Math.floor((left + right) / 2);
+
+            if (arr[mid] === target) {
+                return mid; // Target found
+            } else if (arr[mid] < target) {
+                left = mid + 1;                 // Search right half
+            } else {
+                right = mid - 1;                // Search left half
+            }
+        }
+
+        return -1;                              // Target not found
+    }
+
+
+
+    // minimize x such that condition(x) is true            // Minimization - find first occurrance of an element in a sorted array with duplicates
+    function binarySearch(arr) {
+    // decide what is the search space
+    // hi should be able to take all possible values in the search space
+    // lo points to an invalid value (the negative case of the if condition)
+    let lo = -1, hi = arr.length;
+    while (lo + 1 < hi) {
+        let mid = lo + Math.floor((hi - lo) / 2);
+        if (condition(arr, mid)) {              // here cndtn is a helper function that returns true or false based on cndtn like num >= target
+        hi = mid
+        } else {
+        lo = mid;
+        }
+    }
+
+    // in minimization template, hi contains the return index
+    return hi;
+    }
+
+    // maximize x such that condition(x) is true            // Maximization - find last occurrance of an element in a sorted array with duplicates
+    function binarySearch(arr) {
+    // decide what is the search space
+    // lo should be able to take all possible values in that search space
+    // hi points to an invalid value (the negative case of the if condition)
+    let lo = -1, hi = arr.length;
+    while (lo + 1 < hi) {
+        let mid = lo + Math.floor((hi - lo) / 2);
+        if (condition(arr, mid)) {
+        lo = mid;
+        } else {
+        hi = mid;
+        }
+    }
+
+    // in maximization template, lo contains the return index
+    return lo;
+    }
+
+    function condition(arr, idx) {
+    // some condition on arr[idx]
+    // return true or false
+    return true;
+    }
 
 6) Linked List
 
