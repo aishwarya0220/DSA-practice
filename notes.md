@@ -27,6 +27,74 @@ Patterns
 Define the 4 boundaries of matrix(top,bottom,left,right) and work around those boundaries (95% matrix interview problems follow same pattern)
 
 
+# Divide and conquer algos
+
+follow the template of merge sort wherein modifications are generally made in the combine phase
+
+
+    var reversePairs = function(nums) {
+
+        function mergeSort(nums){
+            if(nums.length <= 1){
+                return {
+                    sorted: nums,
+                    count: 0
+                }
+            }
+
+            const mid = Math.floor(nums.length/2)
+
+            const left = mergeSort(nums.slice(0, mid));
+            const right = mergeSort(nums.slice(mid));
+
+            const merged = []
+
+            let count = left.count + right.count
+
+            let i = 0
+            let j = 0
+
+            count += hasCondition(left.sorted, right.sorted)
+
+            while(i < left.sorted.length && j < right.sorted.length){
+                if(left.sorted[i] <= right.sorted[j]){
+                    merged.push(left.sorted[i++])
+                }else{
+                    merged.push(right.sorted[j++])
+                }
+            }
+            
+            while(i < left.sorted.length){
+                merged.push(left.sorted[i++])
+            }
+
+            while(j < right.sorted.length){
+                merged.push(right.sorted[j++])
+            }
+
+            return {
+                sorted: merged,
+                count: count
+            }
+        }
+        return mergeSort(nums).count
+    };
+
+    function hasCondition(left, right){
+        let j = 0
+
+        let count = 0
+
+        for(let i = 0; i < left.length; i++){
+            while(j < right.length && left[i] > 2 * right[j]){
+                j++
+            }
+            count += j
+        }
+        return count
+    }
+
+
 3) String JS methods
 
 | Functions              | String operation             | Typical complexity |
@@ -172,6 +240,44 @@ map.values() → Gives all values.
 map.entries() → Gives all [key, value] pairs.
 
 - In a js object, an array is not a good object key bcoz js converts the array[3,4] into a string['3,4']
+
+# Prefix sum
+
+    class Solution {
+        longestSubarray(nums, k) {
+        const map = new Map
+
+        let maxLength = 0
+
+        let sum = 0
+
+        map.set(0,-1)
+
+        for(let i = 0; i < nums.length; i++){
+            sum += nums[i]
+
+            const required = sum - k
+
+            if(map.has(required)){
+                const length = i - map.get(required)
+                maxLength = Math.max(length, maxLength)
+            }
+
+            if(!map.has(sum)){
+                map.set(sum, i)
+            }
+        }
+        return maxLength
+        }
+    }
+
+    function main(){
+        const solution = new Solution()
+        return solution.longestSubarray(nums)
+    }
+    console.log(main())
+
+
 
 5) Binary Search
 
