@@ -2680,6 +2680,15 @@ Isolate lowest set bit          n & -n                      Keeps only the right
 Multiply by 2^k                 n << k                      For suitable small integers 
 Divide by 2^k                   n >> k                      Signed integer division, rounded toward negative infinity
 
+- XOR properties:
+
+• Identity: X ^ 0 = X; XORing any number with 0 leaves it unchanged. 
+• Self-Inverse (Cancellation): X ^ X = 0; XORing a number by itself completely wipes it out. 
+• Commutative: A ^ B = B ^ A 
+• Associative: (A ^ B) ^ C = A ^ (B ^ C); order does not matter. You can group and move numbers around however you like
+
+- If we xor 4 and 2, we get 6 but XOR isnt always addition; acts as addition only when A AND(logic operator) B = 0(meaning they share no common 1 bits)
+
 - Practice problems:
 
 1) XOR 
