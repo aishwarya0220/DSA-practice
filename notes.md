@@ -350,6 +350,43 @@ For overflow cases(range b/w low and high is INT_MAX) - use bigInt. Can use form
     return true;
     }
 
+- Partition Search:
+
+pattern applied when given 2 sorted arrays and need to retrieve or perform some operation without merging
+
+class Solution {
+    kthElement(a, b, k) {                   // this code is specific to this prob but the algo can be followed for
+        if(b.length < a.length){            // other probs like median of 2 sorted arrs
+            return kthElement(b, a, k)
+        }
+
+        let low = Math.max(0, k-b.length)
+        let high = Math.min(a.length,k)
+
+        while(low <= high){
+            const mid = Math.floor((low+high)/2)
+
+            let partitionA = mid
+            let partitionB = k - partitionA
+
+            const leftA = partitionA === 0 ? -Infinity : a[partitionA-1]
+            const rightA = partitionA === a.length ? Infinity : a[partitionA]
+            const leftB = partitionB === 0 ? -Infinity : b[partitionB-1]
+            const rightB = partitionB === b.length ? Infinity : b[partitionB]
+
+            if(leftA <= rightB && leftB <= rightA){
+                return Math.max(leftA, leftB)
+            }
+
+            if(leftA > rightB){
+                high = mid - 1
+            }else{
+                low = mid + 1
+            }
+        }
+    }
+}
+
 6) Linked List
 
 JavaScript doesn't have a built-in LinkedList data structure like some languages do. We normally create a Node ourselves:
@@ -2708,3 +2745,5 @@ https://leetcode.com/problems/counting-bits/description/
 https://leetcode.com/problems/reverse-bits/description/
 https://leetcode.com/problems/subsets/description/
 https://leetcode.com/problems/sum-of-two-integers/description/
+
+
