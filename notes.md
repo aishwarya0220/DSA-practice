@@ -186,6 +186,38 @@ Sliding window template for substring search problems -
     }
 
 
+- Counting windows
+
+Exactly K variation: is based on formula Exactly K = At most K − At most (K − 1); the formula is based on set theory; === k condition fails bcoz when shrink left, can skip valid intervals that share the same right endpoint but started at diff left position; eg. subarr with exactly 2 distinct numbers- [1,2,1,3] upon reaching 1,2,1,3 window aint valid so left incremented until valid again(1,3) but in this process, 2,1 is skipped thus difficult to count all valid windows with a single pointer movemt
+
+
+    var numSubarraysWithSum = function(nums, goal) {
+        return atMost(nums, goal) - atMost(nums, goal-1)
+    };
+
+    function atMost(nums, goal){
+        if(goal < 0) return 0                   // if goal = 0 then atmost(goal-1) is atmost(-1)
+        
+        let left = 0
+
+        let count = 0
+
+        let sum = 0
+
+        for(let right = 0; right < nums.length; right++){
+            sum += nums[right]
+
+            while(sum > goal){
+                sum -= nums[left]
+                left++
+            }
+
+            count += right-left+1
+        }
+        return count
+    }
+
+
 4) Backtracking template - 
 
 def backtrack(params):
