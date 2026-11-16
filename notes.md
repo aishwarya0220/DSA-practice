@@ -243,6 +243,13 @@ How do you develop the intuition for recursive parameters?
 
 - Instead ask: "What information do I need to remember to describe where I am in the problem?", "What is changing on every recursive call?"
 
+If asked to find unique subsets or combinations from duplicate array, use formula
+
+    if(i > startIdx && candidates[i] === candidates[i-1]){
+        continue
+    }
+
+allows to check duplicates as child node(lower recursion depth) for the first occurrence but prevents duplicates to act as root node(same recursion depth). eg. [1,1,2] k = 3, startIdx is 0 for the root and each recursive call starts with its own startIdx as i+1; when the root is finally done with its own recursive calls, it moves to next iteration where finally i(1) > 0 and [i] === [i-1] so we skip the duplicate 1 to act as root(if allowed would generate duplicate combinations) and i=2 acts as the new
 
 
 5) Hashmap
