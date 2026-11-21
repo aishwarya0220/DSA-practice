@@ -218,7 +218,7 @@ Exactly K variation: is based on formula Exactly K = At most K − At most (K �
     }
 
 
-4) Backtracking template - 
+4) `Backtra`cking template - 
 
 def backtrack(params):
     if base_case_condition:
@@ -251,6 +251,13 @@ If asked to find unique subsets or combinations from duplicate array, use formul
 
 allows to check duplicates as child node(lower recursion depth) for the first occurrence but prevents duplicates to act as root node(same recursion depth). eg. [1,1,2] k = 3, startIdx is 0 for the root and each recursive call starts with its own startIdx as i+1; when the root is finally done with its own recursive calls, it moves to next iteration where finally i(1) > 0 and [i] === [i-1] so we skip the duplicate 1 to act as root(if allowed would generate duplicate combinations) and i=2 acts as the new
 
+For permutation problems, since we use 
+
+    if(i > 0 && nums[i] === nums[i-1] && !visited[i-1]) continue
+
+this restricts us from checking the previous number again when we assume its 2nd occurrence as the root of our tree
+
+- For recursive string partitioning problems, we usually use a helper function which is called in each recursive call which validates the currently considered string against the constraints of the problem and returns true/false.
 
 5) Hashmap
 
@@ -392,13 +399,13 @@ For overflow cases(range b/w low and high is INT_MAX) - use bigInt. Can use form
 pattern applied when given 2 sorted arrays and need to retrieve or perform some operation without merging
 
 class Solution {
-    kthElement(a, b, k) {                   // this code is specific to this prob but the algo can be followed for
+    kthElement(a, b, k) {                   // this code is specific to this prob but the template can be followed for
         if(b.length < a.length){            // other probs like median of 2 sorted arrs
             return kthElement(b, a, k)
         }
 
-        let low = Math.max(0, k-b.length)
-        let high = Math.min(a.length,k)
+        let low = Math.max(0, k-b.length)   // low holds the minimum no of elements we must take from array a
+        let high = Math.min(a.length,k)     // high holds maximum no of elements we can take from array a
 
         while(low <= high){
             const mid = Math.floor((low+high)/2)
@@ -469,8 +476,8 @@ class ListNode {                        // Doubly linked list
         ↑     ↓
         ← ← ←
 
-    let slow = head;                                        // head instead of head.next bcoz helps handling edge cases like list of single node. also
-    let fast = head;                                        // ensures math of catching up predictably regardless of length
+    let slow = head;
+    let fast = head;
 
     while (fast !== null && fast.next !== null) {           // if only check fast !== null, fast could be last node thus fast.next will be null and so 
         slow = slow.next;                                   // fast.next.next will run as null.next which crashes the code. if fast.next is a val, then
